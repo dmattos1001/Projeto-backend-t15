@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Product } from "./product.entitys";
-import { Provider } from "./Provider.entitys";
+import { Provider } from "./provider.entitys";
 import { User } from "./user.entitys";
 @Entity("productOrder")
 export class ProductOrder {
