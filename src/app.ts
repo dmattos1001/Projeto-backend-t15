@@ -6,7 +6,10 @@ import { providerRouter } from "./routes/provider/provider.routes";
 
 const app = express();
 
+app.use(express.json())
+
 app.use("/provider",providerRouter)
 
 app.use(handleErrorMiddleware);
+
 export default app;

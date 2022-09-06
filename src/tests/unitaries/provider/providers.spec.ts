@@ -29,7 +29,6 @@ describe("/provider", () => {
         expect(response.body).toHaveProperty("cnpj")
         expect(response.body).toHaveProperty("address")
         expect(response.body).toHaveProperty("employee")
-        expect(response.body).toHaveProperty("updatedAt")
         expect(response.body).toHaveProperty("employeeCell")
         expect(response.body.name).toEqual("Megabyte")
         expect(response.body.email).toEqual("megaByte@mail.com")
@@ -39,17 +38,6 @@ describe("/provider", () => {
     test("POST /provider -  shouldn't be able to create an equal cnpj already exists",async () => {
         const response = await request(app).post("/provider").send(mockedProviderEqualCnpj)
 
-        expect(response.body).toHaveProperty("name")
-        expect(response.body).toHaveProperty("telephone")
-        expect(response.body).toHaveProperty("email")
-        expect(response.body).toHaveProperty("cnpj")
-        expect(response.body).toHaveProperty("address")
-        expect(response.body).toHaveProperty("employee")
-        expect(response.body).toHaveProperty("updatedAt")
-        expect(response.body).toHaveProperty("employeeCell")
-        expect(response.body.name).toEqual("Byte")
-        expect(response.body.email).toEqual("byte@mail.com")
- 
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(400)
              
@@ -57,7 +45,6 @@ describe("/provider", () => {
 
     test("GET /provider -  should be able to list all providers",async () => {
         await request(app).post("/provider").send()
-        // const adminLoginResponse = await request(app).post("/login").send(mockedProvider);
         // const response = await request(app).get("/provider").set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
         const response = await request(app).get("/provider").send(mockedProvider)
         expect(response.body).toHaveLength(1)
@@ -83,7 +70,7 @@ describe("/provider", () => {
 
     test("GET /provider/:id -  looking for only one provider",async () => {
 
-        const provider = await request(app).get("/provider/:id")
+        const provider = await request(app).get("/provider")
         const response = await request(app).get(`/provider/${provider.body[0].id}`)
         expect(response.status).toBe(200)
         expect(response.body).toHaveProperty("name")
@@ -92,7 +79,6 @@ describe("/provider", () => {
         expect(response.body).toHaveProperty("cnpj")
         expect(response.body).toHaveProperty("address")
         expect(response.body).toHaveProperty("employee")
-        expect(response.body).toHaveProperty("updatedAt")
         expect(response.body).toHaveProperty("employeeCell")
              
     })

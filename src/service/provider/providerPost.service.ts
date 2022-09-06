@@ -11,7 +11,7 @@ const providerPostService = async ({name,telephone,email,cnpj,address,employee,e
     if (cnpjVerify) {
       throw new AppError("Cnpj already exists",400);
     }
-console.log(name)
+
     const newProvider = providerRepository.create({
       name,
       telephone,
@@ -22,15 +22,6 @@ console.log(name)
       employeeCell
     })
     await providerRepository.save(newProvider)
-    // newProvider.name = name;
-    // newProvider.telephone = telephone;
-    // newProvider.email = email;
-    // newProvider.cnpj = cnpj;
-    // newProvider.address = address;
-    // newProvider.employee = employee;
-    // newProvider.employeeCell = employeeCell
-    // providerRepository.create(newProvider);
-    // await providerRepository.save(newProvider);
 
     return newProvider
 
