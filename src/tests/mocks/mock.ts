@@ -1,6 +1,71 @@
+import { IProductEntryRequest } from "../../interfaces/productEntry";
 import { IProductOrderRequest } from "../../interfaces/productOrder/productOrder";
 import { IProviderRequest } from "../../interfaces/providers/provider";
-
+import { ISessionsResquest } from "../../interfaces/sessions/sessions";
+import { IUserRequest } from "../../interfaces/users/users";
+export const mockedUserAdmNv3: IUserRequest = {
+  name: "hitalo",
+  email: "hitaloMenorLucas@gmail.com",
+  password: "3636",
+  cpf: "06053245625",
+  administrationNivel: 3,
+  occupation: "senior",
+  telephone: "6133658755",
+  cell: "61994133544",
+  address: {
+    district: "Rua Heleodo Pires de camargo",
+    zipCode: "72215093",
+    number: "67",
+    city: "Piedade",
+    state: "SP",
+  },
+};
+export const mockedUserAdmNv2: IUserRequest = {
+  name: "hitalo",
+  email: "hitaloMenoLucas@gmail.com",
+  password: "3636",
+  cpf: "06053345625",
+  administrationNivel: 2,
+  occupation: "senior",
+  telephone: "6133658755",
+  cell: "61994133544",
+  address: {
+    district: "Rua Heleodo Pires de camargo",
+    zipCode: "72215093",
+    number: "67",
+    city: "Piedade",
+    state: "SP",
+  },
+};
+export const mockedUserAdmNv1: IUserRequest = {
+  name: "hitalo",
+  email: "hitaloMeLucas@gmail.com",
+  password: "3636",
+  cpf: "06053245626",
+  administrationNivel: 1,
+  occupation: "senior",
+  telephone: "6133658755",
+  cell: "61994133544",
+  address: {
+    district: "Rua Heleodo Pires de camargo",
+    zipCode: "72215093",
+    number: "67",
+    city: "Piedade",
+    state: "SP",
+  },
+};
+export const mockerLoginAdmNv3: ISessionsResquest = {
+  cpf: "06053245625",
+  password: "3636",
+};
+export const mockerLoginAdmNv2: ISessionsResquest = {
+  cpf: "06053345625",
+  password: "3636",
+};
+export const mockerLoginAdmNv1: ISessionsResquest = {
+  cpf: "06053245626",
+  password: "3636",
+};
 export const mockedProductOrder: IProductOrderRequest = {
   name: "Placa de video",
   quantityOfProducts: 2,
@@ -11,11 +76,6 @@ export const mockedProductOrderInvalidId: IProductOrderRequest = {
   quantityOfProducts: 2,
   providerId: "15212121",
 };
-
-import { IProductEntryRequest } from "../../interfaces/productEntry";
-import { IProviderRequest } from "../../interfaces/providers/provider";
-
-
 export const mockedProvider: IProviderRequest = {
   name: "Megabyte",
   telephone: "1333240499",
@@ -51,4 +111,3 @@ export const mockedProductEntryInvalid: IProductEntryRequest = {
   productsId: "654321",
   providerId: "XYZ",
 };
-

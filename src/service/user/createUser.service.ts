@@ -33,6 +33,9 @@ const createUserService = async ({
   if (!password || !cpf) {
     throw new AppError("Password and CPF is a required field", 400);
   }
+  if (zipCode.length >= 11 || state.length > 3) {
+    throw new AppError("The zip code can only have 9 digits and state 2", 400);
+  }
   const hashedPassword = await hash(password, 10);
   const newAddress = addressRepository.create({
     district: district,
@@ -41,7 +44,6 @@ const createUserService = async ({
     city: city,
     state: state,
   });
-
   await addressRepository.save(newAddress);
 
   const user = userRepository.create({
