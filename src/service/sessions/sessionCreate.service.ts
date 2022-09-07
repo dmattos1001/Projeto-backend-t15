@@ -14,17 +14,13 @@ const sessionsCreateService = async ({
   const userRepository = AppDataSource.getRepository(User);
   const acceslog = AppDataSource.getRepository(AccessLog);
 
-  const user = await userRepository.findOneBy({ password });
+  const user = await userRepository.findOneBy({ cpf: cpf });
   if (!user) {
-    throw new AppError("Invalid email or passwor", 403);
-  }
-  const userCpf = await compare(cpf, user.cpf);
-  if (!userCpf) {
-    throw new AppError("Invalid email or password", 403);
+    throw new AppError("Invalid CPF or passwor", 403);
   }
   const userPassword = await compare(password, user.password);
   if (!userPassword) {
-    throw new AppError("Invalid email or password", 403);
+    throw new AppError("Invalid CPF or password", 403);
   }
   const newAcceslog = acceslog.create({
     user: user,

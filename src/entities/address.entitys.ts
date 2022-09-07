@@ -5,7 +5,7 @@ export class Address {
   id: string;
   @Column({ length: 70 })
   district: string;
-  @Column({ length: 7 })
+  @Column({ length: 11 })
   zipCode: string;
   @Column({ length: 20 })
   number: string;

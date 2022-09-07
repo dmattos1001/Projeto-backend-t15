@@ -3,6 +3,7 @@ interface IUserRequest {
   email: string;
   password: string;
   cpf: string;
+  administrationNivel: number;
   occupation: string;
   telephone: string;
   cell: string;
