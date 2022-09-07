@@ -19,7 +19,7 @@ export class Product {
   @Column()
   stock: number;
   @Column()
-  criticalStock: string;
+  criticalStock: number;
   @ManyToOne(() => Provider, { eager: true })
   provider: Provider;
   @ManyToOne(() => Category, { eager: true })
