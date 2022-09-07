@@ -19,11 +19,11 @@ export class User {
   id: string;
   @Column({ length: 50 })
   name: string;
-  @Column({ length: 50 })
+  @Column({ length: 15 })
   cpf: string;
   @Column({ length: 50 })
   email: string;
-  @Column({ length: 60 })
+  @Column()
   password: string;
   @CreateDateColumn()
   contractDate: Date;
