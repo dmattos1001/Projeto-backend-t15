@@ -2,7 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -38,7 +38,7 @@ export class User {
   @Column({ length: 15 })
   cell: string;
   @OneToOne(() => Address, { eager: true })
-  @JoinTable()
+  @JoinColumn()
   address: Address;
   @OneToMany(() => ProductEntry, (ProductEntry) => ProductEntry.user)
   productEntry: ProductEntry[];
