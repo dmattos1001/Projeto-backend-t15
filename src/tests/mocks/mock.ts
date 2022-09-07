@@ -1,5 +1,20 @@
+import { IProductOrderRequest } from "../../interfaces/productOrder/productOrder";
+import { IProviderRequest } from "../../interfaces/providers/provider";
+
+export const mockedProductOrder: IProductOrderRequest = {
+  name: "Placa de video",
+  quantityOfProducts: 2,
+  providerId: "15212121",
+};
+export const mockedProductOrderInvalidId: IProductOrderRequest = {
+  name: "Placa de video",
+  quantityOfProducts: 2,
+  providerId: "15212121",
+};
+
 import { IProductEntryRequest } from "../../interfaces/productEntry";
 import { IProviderRequest } from "../../interfaces/providers/provider";
+
 
 export const mockedProvider: IProviderRequest = {
   name: "Megabyte",
@@ -36,3 +51,4 @@ export const mockedProductEntryInvalid: IProductEntryRequest = {
   productsId: "654321",
   providerId: "XYZ",
 };
+
