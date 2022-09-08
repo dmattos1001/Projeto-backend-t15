@@ -2,7 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -19,11 +19,11 @@ export class User {
   id: string;
   @Column({ length: 50 })
   name: string;
-  @Column({ length: 50 })
+  @Column({ length: 15 })
   cpf: string;
   @Column({ length: 50 })
   email: string;
-  @Column({ length: 60 })
+  @Column()
   password: string;
   @CreateDateColumn()
   contractDate: Date;
@@ -38,7 +38,7 @@ export class User {
   @Column({ length: 15 })
   cell: string;
   @OneToOne(() => Address, { eager: true })
-  @JoinTable()
+  @JoinColumn()
   address: Address;
   @OneToMany(() => ProductEntry, (ProductEntry) => ProductEntry.user)
   productEntry: ProductEntry[];

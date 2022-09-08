@@ -14,10 +14,15 @@ if(outputProductFind){
 throw new AppError("Product Order already Exists", 400)
 }
 
+if(!outputProductFind){
+  throw new AppError("Product not found", 404)
+  }
+
 if(outputProductFindId){
     if(quantity > 0){
       quantity -= 1
     } else{
+      quantity = 0
     throw new AppError("it is necessary to supply",400)
     }
 }

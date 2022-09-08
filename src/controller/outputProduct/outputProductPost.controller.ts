@@ -5,8 +5,11 @@ const outputProductPostController = async (req: Request, res: Response) => {
 
   try{
      const { name,descriptio,quantity,outputdate,userId,productId } = req.body;
-  
-    const newOutputProduct = await outputProductPostService({name,descriptio,quantity,outputdate,userId,productId})
+
+    const newOutputProduct = await outputProductPostService({name,descriptio,quantity,outputdate,userId,productId}) 
+    if(quantity <= 5){
+      return res.status(201).json({newOutputProduct,message: "it is necessary to supply"})
+     }
     return res.status(201).json(newOutputProduct);
   }catch(err){
     if(err instanceof Error){
