@@ -4,13 +4,12 @@ import listUserByIdController from "../../controller/user/listUserById.controlle
 import listUserController from "../../controller/user/listUser.controller";
 import updateUserController from "../../controller/user/updateUser.controller";
 import deleteUserController from "../../controller/user/deleteUser.controller";
-
+import administrationNivelThree from "../../middlewares/administrationNivelThree.middewars";
 
 export const userRouter = Router();
 
 userRouter.post("", createUserController);
-userRouter.get("", listUserController);
-userRouter.get("/:id", listUserByIdController);
-userRouter.patch("/:id", updateUserController );
-userRouter.delete("/:id", deleteUserController);
-
+userRouter.get("", administrationNivelThree, listUserController);
+userRouter.get("/:id", administrationNivelThree, listUserByIdController);
+userRouter.patch("/:id", administrationNivelThree, updateUserController);
+userRouter.delete("/:id", administrationNivelThree, deleteUserController);
