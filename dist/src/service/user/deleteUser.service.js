@@ -23,7 +23,9 @@ const deleteUserService = (id) => __awaiter(void 0, void 0, void 0, function* ()
     if (!user.isActive) {
         throw new Error("This user is already deactivated");
     }
-    const desactiveUser = Object.assign(Object.assign({}, user), { isActive: false });
+    const desactiveUser = {
+        isActive: false,
+    };
     yield userRepository.update(id, desactiveUser);
 });
 exports.default = deleteUserService;

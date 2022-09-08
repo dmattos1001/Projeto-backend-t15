@@ -15,9 +15,11 @@ const AppDataSource = new typeorm_1.DataSource(process.env.NODE_ENV === "test"
         ssl: process.env.NODE_ENV === "production"
             ? { rejectUnauthorized: false }
             : false,
-        logging: true,
-        synchronize: false,
-        entities: ["src/entities/*.ts"],
-        migrations: ["src/migrations/*.ts"],
+        entities: process.env.NODE_ENV === "production"
+            ? ["dist/src/entities/*.js"]
+            : ["src/entities/*.ts"],
+        migrations: process.env.NODE_ENV === "production"
+            ? ["dist/src/migrations/*.js"]
+            : ["src/migrations/*.ts"],
     });
 exports.default = AppDataSource;

@@ -14,7 +14,6 @@ const accessLog_routes_1 = __importDefault(require("./routes/accessLog/accessLog
 const session_routes_1 = __importDefault(require("./routes/session/session.routes"));
 const productEntry_routes_1 = __importDefault(require("./routes/productEntry/productEntry.routes"));
 const user_routes_1 = require("./routes/user/user.routes");
-const output_routes_1 = require("./routes/outputProducts/output.routes");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use("/provider", provider_routes_1.providerRouter);
@@ -24,6 +23,5 @@ app.use("/login", session_routes_1.default);
 app.use("/productentry", productEntry_routes_1.default);
 app.use("/category", category_routes_1.categoryRouter);
 app.use("/product", product_routes_1.productRoutes);
-app.use("/outputsProducts", output_routes_1.outputProductsRouter);
 app.use(handleError_middleware_1.handleErrorMiddleware);
 exports.default = app;

@@ -33,7 +33,7 @@ const createProductEntryService = ({ name, quantity, userId, productsId, provide
         throw new AppErros_1.AppError("User not found", 404);
     }
     if (!providerExists) {
-        throw new AppErros_1.AppError("Provider not found", 404);
+        throw new AppErros_1.AppError("Provier not found", 404);
     }
     if (quantity < 1) {
         throw new AppErros_1.AppError("Quantity must be at least 1", 400);
