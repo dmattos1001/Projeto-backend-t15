@@ -8,6 +8,7 @@ interface IUser {
   telephone: string;
   cell: string;
   address: IAdressRequest;
+  
 }
 
 interface IUserRequest {

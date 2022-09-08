@@ -1,3 +1,4 @@
+import { IOutputProductsRequest } from "../../interfaces/outputProducts/outputProducts";
 import { ICategoryRequest } from "../../interfaces/category/category";
 import { IProduct } from "../../interfaces/product/product";
 import { IProductEntryRequest } from "../../interfaces/productEntry";

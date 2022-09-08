@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-export const administrationNivelOne = (
+export const administrationNivelTwo = (
   req: Request,
   res: Response,
   next: NextFunction
@@ -9,8 +9,8 @@ export const administrationNivelOne = (
     return res.status(403).send({ message: "Unauthorized user" });
   }
   if (administrationNivel >= 2 || administrationNivel <= 3) {
-    next();
+    return next();
   }
   return res.status(403).send({ message: "Unauthorized user" });
 };
-export default administrationNivelOne;
+export default administrationNivelTwo;

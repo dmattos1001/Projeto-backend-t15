@@ -55,7 +55,7 @@ const createUserService = async ({
     administrationNivel,
     telephone,
     cell,
-    address: newAddress,
+    address: newAddress
   });
   await userRepository.save(user);
   return user;
