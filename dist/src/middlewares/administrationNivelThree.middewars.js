@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.administrationNivelThree = void 0;
-const administrationNivelThree = (req, res, next) => {
+exports.administrationNivelOne = void 0;
+const administrationNivelOne = (req, res, next) => {
     const { administrationNivel } = req.user;
     if (!administrationNivel) {
         return res.status(403).send({ message: "Unauthorized user" });
     }
     if (administrationNivel === 3) {
-        return next();
+        next();
     }
     return res.status(403).send({ message: "Unauthorized user" });
 };
-exports.administrationNivelThree = administrationNivelThree;
-exports.default = exports.administrationNivelThree;
+exports.administrationNivelOne = administrationNivelOne;
+exports.default = exports.administrationNivelOne;

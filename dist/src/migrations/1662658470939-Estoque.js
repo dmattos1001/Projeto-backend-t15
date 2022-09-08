@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Estoque1662657960521 = void 0;
-class Estoque1662657960521 {
+exports.Estoque1662658470939 = void 0;
+class Estoque1662658470939 {
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
         });
@@ -20,4 +20,4 @@ class Estoque1662657960521 {
         });
     }
 }
-exports.Estoque1662657960521 = Estoque1662657960521;
+exports.Estoque1662658470939 = Estoque1662658470939;

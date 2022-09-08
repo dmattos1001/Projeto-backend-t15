@@ -54,7 +54,7 @@ const createUserService = ({ name, email, password, administrationNivel, cpf, oc
         administrationNivel,
         telephone,
         cell,
-        address: newAddress
+        address: newAddress,
     });
     yield userRepository.save(user);
     return user;
