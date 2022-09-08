@@ -13,16 +13,16 @@ import { outputProductsRouter } from './routes/outputProducts/output.routes';
 
 const app = express();
 
-
 app.use(express.json());
-app.use("/users", userRouter);
 app.use("/provider", providerRouter);
+app.use("/users", userRouter);
 app.use("/accessLog", accessLogRouter);
 app.use("/login", sessionRouter);
 app.use("/productentry", productEntryRouter);
 app.use("/category", categoryRouter);
 app.use("/product", productRoutes);
 app.use("/outputsProducts",outputProductsRouter)
+
 
 app.use(handleErrorMiddleware);
 

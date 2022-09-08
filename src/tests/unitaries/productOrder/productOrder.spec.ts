@@ -3,6 +3,8 @@ import { DataSource } from "typeorm";
 import app from "../../../app";
 import AppDataSource from "../../../data.source";
 import {
+  mockedCategory,
+  mockedProduct,
   mockedProductOrder,
   mockedProductOrderInvalidId,
   mockedProvider,
@@ -20,14 +22,34 @@ describe("/productOrder", () => {
       });
 
     await request(app).post("/provider").send(mockedProvider);
+    const responseProvider = await request(app).get("/provider");
+    mockedProduct.provider = responseProvider.body[0].id;
+    await request(app).post("/category").send(mockedCategory);
+    const responseCategory = await request(app).get("/category");
+    mockedProduct.category = responseCategory.body.id;
+    await request(app).post("/product").send(mockedProduct);
   });
-
   afterAll(async () => {
     await connection.destroy();
   });
+
+  test("POST /productOrder - consola loga", async () => {
+    const proproduct = await request(app).get("/proproduct");
+    mockedProductOrder.productId = proproduct.body[0].id;
+    const response = await request(app)
+      .post("/productOrder")
+      .send(mockedProductOrder);
+
+    expect(response.body).toHaveProperty("id");
+    expect(response.body).toHaveProperty("name");
+    expect(response.body).toHaveProperty("quantityOfProducts");
+    expect(response.body).toHaveProperty("requestDate");
+    expect(response.status).toBe(200);
+  });
+
   test("POST /productOrder ", async () => {
-    const provider = await request(app).get("/provider");
-    mockedProductOrder.providerId = provider.body[0].id;
+    const proproduct = await request(app).get("/proproduct");
+    mockedProductOrder.productId = proproduct.body[0].id;
     const response = await request(app)
       .post("/productOrder")
       .send(mockedProductOrder);
@@ -40,8 +62,8 @@ describe("/productOrder", () => {
   });
 
   test("POST /productOrder - should not be able to create productOrder that already exists", async () => {
-    const provider = await request(app).get("/provider");
-    mockedProductOrder.providerId = provider.body[0].id;
+    const proproduct = await request(app).get("/proproduct");
+    mockedProductOrder.productId = proproduct.body[0].id;
     const response = await request(app)
       .post("/productOrder")
       .send(mockedProductOrder);

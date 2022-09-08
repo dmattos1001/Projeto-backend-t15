@@ -1,4 +1,6 @@
 import { IOutputProductsRequest } from "../../interfaces/outputProducts/outputProducts";
+import { ICategoryRequest } from "../../interfaces/category/category";
+import { IProduct } from "../../interfaces/product/product";
 import { IProductEntryRequest } from "../../interfaces/productEntry";
 import { IProductOrderRequest } from "../../interfaces/productOrder/productOrder";
 import { IProviderRequest } from "../../interfaces/providers/provider";
@@ -70,12 +72,26 @@ export const mockerLoginAdmNv1: ISessionsResquest = {
 export const mockedProductOrder: IProductOrderRequest = {
   name: "Placa de video",
   quantityOfProducts: 2,
-  providerId: "15212121",
+  productId: "15212121",
 };
 export const mockedProductOrderInvalidId: IProductOrderRequest = {
   name: "Placa de video",
   quantityOfProducts: 2,
-  providerId: "15212121",
+  productId: "15212121",
+};
+export const mockedProduct: IProduct = {
+  name: "placa de video",
+  description: "sdsdsdsdsd",
+  value: 5050,
+  saleValue: 6500,
+  stock: 5,
+  criticalStock: 2,
+  provider: "",
+  category: "",
+};
+export const mockedCategory: ICategoryRequest = {
+  name: "placas",
+  description: "placas em geral",
 };
 export const mockedProvider: IProviderRequest = {
   name: "Megabyte",
