@@ -1,4 +1,4 @@
-interface IUserRequest {
+interface IUser {
   name: string;
   email: string;
   password: string;
@@ -10,6 +10,18 @@ interface IUserRequest {
   address: IAdressRequest;
 }
 
+interface IUserRequest {
+  name: string;
+  email: string;
+  password: string;
+  cpf: string;
+  administrationNivel: number;
+  occupation: string;
+  telephone: string;
+  cell: string;
+  address?: IAdressRequest;
+}
+
 interface IAdressRequest {
   district: string;
   zipCode: string;
@@ -18,4 +30,4 @@ interface IAdressRequest {
   state: string;
 }
 
-export { IUserRequest, IAdressRequest };
+export { IUserRequest, IAdressRequest, IUser };

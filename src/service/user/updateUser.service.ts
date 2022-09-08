@@ -1,35 +1,46 @@
 import AppDataSource from "../../data.source";
 import { Address } from "../../entities/address.entitys";
 import { User } from "../../entities/user.entitys";
+import { AppError } from "../../errors/AppErros";
 import { IUserRequest } from "../../interfaces/users/users";
 
-const updatedUserService    = async (userUpdateData:IUserRequest): Promise<User>=>{
-  const userRepository      = AppDataSource.getRepository(User)
-  const addressRepository   = AppDataSource.getRepository(Address);
+const updatedUserService = async (
+  id: string,
+  userUpdateData: IUserRequest
+): Promise<User> => {
+  const userRepository = AppDataSource.getRepository(User);
+  const addressRepository = AppDataSource.getRepository(Address);
 
-  const user                = userRepository.findOneBy({email: userUpdateData.email})
-
-  const address             = addressRepository.findOneBy({id: user.address.id})
-  const newAddressReceived  = {
-    district: userUpdateData.address.district || address.district,
-    zipCode: userUpdateData.address.zipCode   || address.zipCode,
-    number: userUpdateData.address.number     || address.number, 
-    city: userUpdateData.address.city         || address.city,
-    state: userUpdateData.address.state       || address.state,
+  const user = await userRepository.findOneByOrFail({
+    id: id,
+  });
+  if (!user) {
+    throw new AppError("hitalo", 400);
   }
-  const newAddress          = await addressRepository.update(address, newAddressReceived)
-  
-  const updatedUser         = {
-    ...user,
-    email: userUpdateData.email,
-    password: userUpdateData.password,
-    occupation: userUpdateData.occupation,
-    telephone: userUpdateData.telephone,
-    cell: userUpdateData.cell,
-    addressId: newAddress
+  const address = await addressRepository.findOneByOrFail({
+    id: user.address.id,
+  });
+
+  if (userUpdateData.address) {
+    const newAddressReceived = {
+      district: userUpdateData.address.district || address.district,
+      zipCode: userUpdateData.address.zipCode || address.zipCode,
+      number: userUpdateData.address.number || address.number,
+      city: userUpdateData.address.city || address.city,
+      state: userUpdateData.address.state || address.state,
+    };
+    await addressRepository.update(address.id, newAddressReceived);
   }
 
-  return updatedUser
-}
-
+  const updatedUser = {
+    name: userUpdateData.name || user.name,
+    email: userUpdateData.email || user.email,
+    password: userUpdateData.password || user.password,
+    occupation: userUpdateData.occupation || user.occupation,
+    telephone: userUpdateData.telephone || user.telephone,
+    cell: userUpdateData.cell || user.cell,
+  };
+  await userRepository.update(id, updatedUser);
+  return user;
+};
 export default updatedUserService;

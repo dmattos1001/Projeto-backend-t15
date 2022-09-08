@@ -1,14 +1,12 @@
-import { Provider } from "../../entities/provider.entitys"
-import AppDataSource from './../../data.source';
+import { Provider } from "../../entities/provider.entitys";
+import AppDataSource from "./../../data.source";
 
-const providerGetService = async () =>{
+const providerGetService = async () => {
+  const providerRepository = AppDataSource.getRepository(Provider);
 
-const providerRepository = AppDataSource.getRepository(Provider)
+  const providersFind = await providerRepository.find();
 
-const providersFind = await providerRepository.find()
+  return providersFind;
+};
 
-return providersFind
-
-}
-
-export default providerGetService
+export default providerGetService;

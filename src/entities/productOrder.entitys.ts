@@ -22,8 +22,6 @@ export class ProductOrder {
   requestDate: Date;
   @ManyToOne(() => User, { eager: true })
   user: User;
-  @ManyToOne(() => Provider, { eager: true })
-  provider: Provider;
   @OneToOne(() => Product, { eager: true })
   @JoinColumn()
   product: Product;

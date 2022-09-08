@@ -1,9 +1,9 @@
 import AppDataSource from "../../data.source";
 import { User } from "../../entities/user.entitys";
-import { IUserRequest } from "../../interfaces/users/users";
-import { compare, hash } from "bcryptjs";
+import { hash } from "bcryptjs";
 import { AppError } from "../../errors/AppErros";
 import { Address } from "../../entities/address.entitys";
+import { IUser } from "../../interfaces/users/users";
 
 const createUserService = async ({
   name,
@@ -15,7 +15,7 @@ const createUserService = async ({
   telephone,
   cell,
   address,
-}: IUserRequest): Promise<User> => {
+}: IUser): Promise<User> => {
   const userRepository = AppDataSource.getRepository(User);
   const addressRepository = AppDataSource.getRepository(Address);
 
