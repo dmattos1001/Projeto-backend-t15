@@ -22,6 +22,4 @@ export class Provider {
   employeeCell: string;
   @OneToMany(() => Product, (Product) => Product.provider)
   product: Product[];
-  @OneToMany(() => ProductOrder, (ProductOrder) => ProductOrder.provider)
-  productOrder: ProductOrder[];
 }

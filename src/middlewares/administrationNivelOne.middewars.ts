@@ -8,7 +8,7 @@ export const administrationNivelTwo = (
   if (!administrationNivel) {
     return res.status(403).send({ message: "Unauthorized user" });
   }
-  if (administrationNivel <= 1 || administrationNivel >= 3) {
+  if (administrationNivel >= 1 || administrationNivel <= 3) {
     next();
   }
   return res.status(403).send({ message: "Unauthorized user" });
