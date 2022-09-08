@@ -34,7 +34,7 @@ const createProductEntryService = async ({
     throw new AppError("User not found", 404);
   }
   if (!providerExists) {
-    throw new AppError("Provier not found", 404);
+    throw new AppError("Provider not found", 404);
   }
   if (quantity < 1) {
     throw new AppError("Quantity must be at least 1", 400);
