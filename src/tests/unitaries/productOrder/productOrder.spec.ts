@@ -33,14 +33,13 @@ describe("/productOrder", () => {
     await connection.destroy();
   });
 
-  test("POST /productOrder - consola loga", async () => {
-    const proproduct = await request(app).get("/proproduct");
+  test("POST /productOrder - Creating a order product", async () => {
+    const proproduct = await request(app).get("/product");
     mockedProductOrder.productId = proproduct.body[0].id;
     const response = await request(app)
       .post("/productOrder")
       .send(mockedProductOrder);
 
-    expect(response.body).toHaveProperty("id");
     expect(response.body).toHaveProperty("name");
     expect(response.body).toHaveProperty("quantityOfProducts");
     expect(response.body).toHaveProperty("requestDate");
