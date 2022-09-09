@@ -7,10 +7,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      - DB_HOST=db
-      - DB_PASSWORD=123456
-      - DB=ProjetoBackend
-      - DB_USER=Lucas
+      - DATABASE_URL="postgres://Lucas:123456@dbt:5432/ProjetoBackend"
       - SECRET_KEY=sua_chave_secreta
     depends_on:
       db:
