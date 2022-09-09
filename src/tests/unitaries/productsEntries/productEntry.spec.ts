@@ -26,8 +26,8 @@ describe("/productentry", () => {
         console.error("Error during Data Source initialization", err);
       });
 
-    await request(app).post("/users").send(mockedUserAdmNv3);
     await request(app).post("/users").send(mockedUserAdmNv2);
+    await request(app).post("/users").send(mockedUserAdmNv3);
     const adminLvl3 = await request(app).post("/login").send(mockerLoginAdmNv3);
     const category = await request(app)
       .post("/category")
@@ -51,13 +51,17 @@ describe("/productentry", () => {
 
   test("POST /productentry - Registering product entry", async () => {
     const adminLvl3 = await request(app).post("/login").send(mockerLoginAdmNv3);
+    const users = await request(app)
+      .get("/users")
+      .set("Authorization", `Bearer ${adminLvl3.body.token}`);
+
     const products = await request(app)
       .get("/product")
       .set("Authorization", `Bearer ${adminLvl3.body.token}`);
     const providers = await request(app)
       .get("/provider")
       .set("Authorization", `Bearer ${adminLvl3.body.token}`);
-    mockedProductEntry.userId = adminLvl3.body.id;
+    mockedProductEntry.userId = users.body[0].id;
     mockedProductEntry.productsId = products.body[0].id;
     mockedProductEntry.providerId = providers.body[0].id;
     const response = await request(app)
@@ -65,12 +69,10 @@ describe("/productentry", () => {
       .set("Authorization", `Bearer ${adminLvl3.body.token}`)
       .send(mockedProductEntry);
 
-    expect(response.body).toHaveProperty("name");
     expect(response.body).toHaveProperty("quantity");
-    expect(response.body).toHaveProperty("user");
-    expect(response.body).toHaveProperty("product");
-    expect(response.body).toHaveProperty("provider");
-    expect(response.body.name).toEqual("RTX 3080");
+    expect(response.body).toHaveProperty("userId");
+    expect(response.body).toHaveProperty("productsId");
+    expect(response.body).toHaveProperty("providerId");
     expect(response.body.quantity).toEqual(15);
     expect(response.status).toBe(201);
   });
@@ -125,10 +127,9 @@ describe("/productentry", () => {
 
     expect(response.body).toHaveProperty("name");
     expect(response.body).toHaveProperty("quantity");
-    expect(response.body).toHaveProperty("user");
-    expect(response.body).toHaveProperty("product");
-    expect(response.body).toHaveProperty("provider");
-    expect(response.body.name).toEqual(mockedProductEntry.name);
+    expect(response.body).toHaveProperty("userId");
+    expect(response.body).toHaveProperty("productId");
+    expect(response.body).toHaveProperty("providerId");
     expect(response.body.quantity).toEqual(15);
     expect(response.status).toBe(200);
   });
