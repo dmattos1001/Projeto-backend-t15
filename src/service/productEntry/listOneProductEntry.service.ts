@@ -1,3 +1,4 @@
+import { Any } from "typeorm";
 import AppDataSource from "../../data.source";
 import { ProductEntry } from "../../entities/ProductEntry.entitys";
 import { AppError } from "../../errors/AppErros";
@@ -13,7 +14,14 @@ const listOneProductEntryService = async (id: string) => {
     throw new AppError("Product entry not found", 404);
   }
 
-  return productEntry;
+  return {
+    id: productEntry.id,
+    productId: productEntry.product.id,
+    name: productEntry.product.name,
+    quantity: productEntry.quantity,
+    providerId: productEntry.provider.id,
+    userId: productEntry.user.id,
+  };
 };
 
 export default listOneProductEntryService;
