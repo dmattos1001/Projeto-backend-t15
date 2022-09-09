@@ -10,12 +10,12 @@ const deleteUserService = async (id:string)=>{
     throw new Error("User not found!")
 
   }
-  if (!user.isActive) {
+
+  if (user.isActive == false) {
     throw new Error("This user is already deactivated");
   }
 
   const desactiveUser = {
-
     ...user,
     isActive: false
   }

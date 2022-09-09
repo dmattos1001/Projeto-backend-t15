@@ -5,11 +5,12 @@ import listUserController from "../../controller/user/listUser.controller";
 import updateUserController from "../../controller/user/updateUser.controller";
 import deleteUserController from "../../controller/user/deleteUser.controller";
 import administrationNivelThree from "../../middlewares/administrationNivelThree.middewars";
+import { tokenAuthMiddlewares } from "../../middlewares/tokenAuth.middleware";
 
 export const userRouter = Router();
 
 userRouter.post("", createUserController);
-userRouter.get("", administrationNivelThree, listUserController);
+userRouter.get("", tokenAuthMiddlewares, administrationNivelThree, listUserController);
 userRouter.get("/:id", administrationNivelThree, listUserByIdController);
 userRouter.patch("/:id", administrationNivelThree, updateUserController);
-userRouter.delete("/:id", administrationNivelThree, deleteUserController);
+userRouter.delete("/:id", tokenAuthMiddlewares, administrationNivelThree, deleteUserController);
