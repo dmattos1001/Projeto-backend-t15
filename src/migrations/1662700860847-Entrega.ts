@@ -1,14 +1,14 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class Estoque1662658480230 implements MigrationInterface {
-    name = 'Estoque1662658480230'
+export class Entrega1662700860847 implements MigrationInterface {
+    name = 'Entrega1662700860847'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`CREATE TABLE "address" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "district" character varying(70) NOT NULL, "zipCode" character varying(11) NOT NULL, "number" character varying(20) NOT NULL, "city" character varying(40) NOT NULL, "state" character varying(2) NOT NULL, CONSTRAINT "PK_d92de1f82754668b5f5f5dd4fd5" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "category" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(50) NOT NULL, "description" character varying(200) NOT NULL, CONSTRAINT "PK_9c4e4a89e3674fc9f382d733f03" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "provider" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(200) NOT NULL, "telephone" character varying(12) NOT NULL, "email" character varying(100) NOT NULL, "cnpj" character varying(16) NOT NULL, "address" character varying(200) NOT NULL, "employee" character varying(40) NOT NULL, "employeeCell" character varying(15) NOT NULL, CONSTRAINT "PK_6ab2f66d8987bf1bfdd6136a2d5" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "product" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(50) NOT NULL, "description" character varying(200) NOT NULL, "isActive" boolean NOT NULL DEFAULT true, "value" integer NOT NULL, "saleValue" integer NOT NULL, "stock" integer NOT NULL, "criticalStock" integer NOT NULL, "providerId" uuid, "categoryId" uuid, CONSTRAINT "PK_bebc9158e480b949565b4dc7a82" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "accessLog" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "accessDate" TIMESTAMP NOT NULL DEFAULT now(), "userId" uuid, CONSTRAINT "PK_2c29a0c4a68e599e9f476938bdd" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "address" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "district" character varying(70) NOT NULL, "zipCode" character varying(11) NOT NULL, "number" character varying(20) NOT NULL, "city" character varying(40) NOT NULL, "state" character varying(2) NOT NULL, CONSTRAINT "PK_d92de1f82754668b5f5f5dd4fd5" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "productEntry" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(50) NOT NULL, "receivedD" date NOT NULL DEFAULT now(), "quantity" integer NOT NULL, "userId" uuid, "productId" uuid, "providerId" uuid, CONSTRAINT "REL_e0f4c59c9321c0921eff703f4c" UNIQUE ("productId"), CONSTRAINT "REL_8611f50f932d4dc0e4e917035e" UNIQUE ("providerId"), CONSTRAINT "PK_2aac59694b296c060b446cb1a59" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "productOrder" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(50) NOT NULL, "quantityOfProducts" integer NOT NULL, "requestDate" TIMESTAMP NOT NULL DEFAULT now(), "userId" uuid, "productId" uuid, CONSTRAINT "REL_6eef5bbf67ba6262f5ace7f67c" UNIQUE ("productId"), CONSTRAINT "PK_62d6c74feb56fe9253a9a43eb12" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "user" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(50) NOT NULL, "cpf" character varying(15) NOT NULL, "email" character varying(50) NOT NULL, "password" character varying NOT NULL, "contractDate" TIMESTAMP NOT NULL DEFAULT now(), "administrationNivel" integer NOT NULL, "isActive" boolean NOT NULL DEFAULT true, "occupation" character varying(30) NOT NULL, "telephone" character varying(15) NOT NULL, "cell" character varying(15) NOT NULL, "addressId" uuid, CONSTRAINT "REL_217ba147c5de6c107f2fa7fa27" UNIQUE ("addressId"), CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id"))`);
@@ -42,11 +42,11 @@ export class Estoque1662658480230 implements MigrationInterface {
         await queryRunner.query(`DROP TABLE "user"`);
         await queryRunner.query(`DROP TABLE "productOrder"`);
         await queryRunner.query(`DROP TABLE "productEntry"`);
+        await queryRunner.query(`DROP TABLE "address"`);
         await queryRunner.query(`DROP TABLE "accessLog"`);
         await queryRunner.query(`DROP TABLE "product"`);
         await queryRunner.query(`DROP TABLE "provider"`);
         await queryRunner.query(`DROP TABLE "category"`);
-        await queryRunner.query(`DROP TABLE "address"`);
     }
 
 }
