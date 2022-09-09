@@ -42,7 +42,8 @@ describe("/productOrder", () => {
 
     expect(response.body).toHaveProperty("name");
     expect(response.body).toHaveProperty("quantityOfProducts");
-    expect(response.body).toHaveProperty("requestDate");
+    expect(response.body).toHaveProperty("employeeId");
+    expect(response.body).toHaveProperty("employeeId");
     expect(response.status).toBe(200);
   });
 

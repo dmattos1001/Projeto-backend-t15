@@ -15,11 +15,12 @@ const updatedUserService = async (
     id: id,
   });
   if (!user) {
-    throw new AppError("hitalo", 400);
+    throw new AppError("user is not found", 404);
   }
   const address = await addressRepository.findOneByOrFail({
     id: user.address.id,
   });
+  
 
   if (userUpdateData.address) {
     const newAddressReceived = {
