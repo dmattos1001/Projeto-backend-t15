@@ -1,5 +1,6 @@
 import AppDataSource from "../../data.source";
 import { User } from "../../entities/user.entitys";
+import { AppError } from "../../errors/AppErros";
 
 
 const deleteUserService = async (id:string)=>{
@@ -7,11 +8,11 @@ const deleteUserService = async (id:string)=>{
   const user = await userRepository.findOneBy({id: id})
   
   if(!user){
-    throw new Error("User not found!")
+    throw new AppError("User not found!",404)
 
   }
   if (!user.isActive) {
-    throw new Error("This user is already deactivated");
+    throw new AppError("This user is already deactivated",400);
   }
 
   const desactiveUser = {
