@@ -52,7 +52,7 @@ const createProductEntryService = async ({
   productEntryRepository.create(newEntry);
 
   await productEntryRepository.save(newEntry);
-  console.log(userId);
+
   return {
     name: productExists.name,
     quantity,

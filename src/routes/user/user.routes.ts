@@ -9,7 +9,12 @@ import { tokenAuthMiddlewares } from "../../middlewares/tokenAuth.middleware";
 
 export const userRouter = Router();
 
-userRouter.post("", createUserController);
+userRouter.post(
+  "",
+  tokenAuthMiddlewares,
+  administrationNivelThree,
+  createUserController
+);
 userRouter.get(
   "",
   tokenAuthMiddlewares,

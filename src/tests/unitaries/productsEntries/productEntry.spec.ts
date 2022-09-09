@@ -13,6 +13,8 @@ import {
   mockerLoginAdmNv2,
   mockerLoginAdmNv3,
 } from "../../mocks/mock";
+import "dotenv/config";
+import createUserService from "../../../service/user/createUser.service";
 
 describe("/productentry", () => {
   let connection: DataSource;
@@ -26,8 +28,10 @@ describe("/productentry", () => {
         console.error("Error during Data Source initialization", err);
       });
 
-    await request(app).post("/users").send(mockedUserAdmNv2);
-    await request(app).post("/users").send(mockedUserAdmNv3);
+    await createUserService(mockedUserAdmNv3);
+    await createUserService(mockedUserAdmNv2);
+    // await request(app).post("/users").send(mockedUserAdmNv2);
+    // await request(app).post("/users").send(mockedUserAdmNv3);
     const adminLvl3 = await request(app).post("/login").send(mockerLoginAdmNv3);
     const category = await request(app)
       .post("/category")
@@ -51,6 +55,7 @@ describe("/productentry", () => {
 
   test("POST /productentry - Registering product entry", async () => {
     const adminLvl3 = await request(app).post("/login").send(mockerLoginAdmNv3);
+
     const users = await request(app)
       .get("/users")
       .set("Authorization", `Bearer ${adminLvl3.body.token}`);
