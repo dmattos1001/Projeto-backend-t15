@@ -5,8 +5,8 @@ import { IProductEntryRequest } from "../../interfaces/productEntry";
 import { IProductOrderRequest } from "../../interfaces/productOrder/productOrder";
 import { IProviderRequest } from "../../interfaces/providers/provider";
 import { ISessionsResquest } from "../../interfaces/sessions/sessions";
-import { IUserRequest } from "../../interfaces/users/users";
-export const mockedUserAdmNv3: IUserRequest = {
+import { IUser } from "../../interfaces/users/users";
+export const mockedUserAdmNv3: IUser = {
   name: "hitalo",
   email: "hitaloMenorLucas@gmail.com",
   password: "3636",
@@ -23,7 +23,7 @@ export const mockedUserAdmNv3: IUserRequest = {
     state: "SP",
   },
 };
-export const mockedUserAdmNv2: IUserRequest = {
+export const mockedUserAdmNv2: IUser = {
   name: "hitalo",
   email: "hitaloMenoLucas@gmail.com",
   password: "3636",
@@ -40,7 +40,7 @@ export const mockedUserAdmNv2: IUserRequest = {
     state: "SP",
   },
 };
-export const mockedUserAdmNv1: IUserRequest = {
+export const mockedUserAdmNv1: IUser = {
   name: "hitalo",
   email: "hitaloMeLucas@gmail.com",
   password: "3636",

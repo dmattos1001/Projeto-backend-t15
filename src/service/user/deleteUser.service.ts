@@ -6,11 +6,13 @@ const deleteUserService = async (id: string) => {
   const userRepository = AppDataSource.getRepository(User);
   const user = await userRepository.findOneBy({ id: id });
 
+
   if (!user) {
     throw new AppError("User not found!");
   }
   if (!user.isActive) {
     throw new AppError("This user is already deactivated");
+
   }
   const userAdm = await userRepository.find();
   const adminuserNotDelete = userAdm.find(

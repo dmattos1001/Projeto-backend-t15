@@ -15,11 +15,14 @@ const updatedUserService = async (
     id: id,
   });
   if (!user) {
+
     throw new AppError("Invalid userId", 400);
+
   }
   const address = await addressRepository.findOneByOrFail({
     id: user.address.id,
   });
+  
 
   if (userUpdateData.address) {
     const newAddressReceived = {
