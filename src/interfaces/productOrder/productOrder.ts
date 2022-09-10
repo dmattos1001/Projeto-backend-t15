@@ -1,5 +1,7 @@
 export interface IProductOrderRequest {
   name: string;
   quantityOfProducts: number;
-  productId: string;
+  requestDate: Date;
+  user: string;
+  product: string;
 }
