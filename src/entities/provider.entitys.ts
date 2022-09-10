@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "./product.entitys";
+import { ProductEntry } from "./ProductEntry.entitys";
 import { ProductOrder } from "./productOrder.entitys";
 
 @Entity("provider")
@@ -22,4 +23,6 @@ export class Provider {
   employeeCell: string;
   @OneToMany(() => Product, (Product) => Product.provider)
   product: Product[];
+  @OneToMany(() => ProductEntry, (ProductEntry) => ProductEntry.provider)
+  productEntry: ProductEntry[];
 }

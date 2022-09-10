@@ -8,7 +8,6 @@ import { IProductOrderRequest } from "../../interfaces/productOrder/productOrder
 const createProductOrderService = async ({
   name,
   quantityOfProducts,
-  requestDate,
   user,
   product,
 }: IProductOrderRequest): Promise<ProductOrder> => {
@@ -24,10 +23,16 @@ const createProductOrderService = async ({
   if (nameExists) {
     throw new AppError("Product name already registered", 400);
   }
+  const productExists = await productOrderRepository.find();
+  const productIdExits = productExists.find(
+    (element) => element.product.id === product
+  );
+  // if (productIdExits) {
+  //   throw new AppError("product order already exists for this product", 400);
+  // }
   const newProductOrder = productOrderRepository.create({
     name,
     quantityOfProducts,
-    requestDate,
     user: userExist,
     product: productExist,
   });

@@ -4,11 +4,10 @@ import createProductOrderService from "../../service/productOrder/createProductO
 const createProductOrderController = async (req: Request, res: Response) => {
   try {
     const user = req.user.id;
-    const { name, quantityOfProducts, requestDate, product } = req.body;
+    const { name, quantityOfProducts, product } = req.body;
     const productOrder = await createProductOrderService({
       name,
       quantityOfProducts,
-      requestDate,
       user,
       product,
     });
