@@ -72,12 +72,14 @@ export const mockerLoginAdmNv1: ISessionsResquest = {
 export const mockedProductOrder: IProductOrderRequest = {
   name: "Placa de video",
   quantityOfProducts: 2,
-  productId: "15212121",
+  product: "15212121",
+  user: "",
 };
 export const mockedProductOrderInvalidId: IProductOrderRequest = {
   name: "Placa de video",
   quantityOfProducts: 2,
-  productId: "15212121",
+  product: "15212121",
+  user: "",
 };
 export const mockedProduct: IProduct = {
   name: "placa de video",

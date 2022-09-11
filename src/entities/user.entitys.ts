@@ -47,5 +47,5 @@ export class User {
   @OneToMany(() => ProductOrder, (ProductOrder) => ProductOrder.user)
   productOrder: ProductOrder[];
   @OneToMany(() => OutputProduct, (OutputProduct) => OutputProduct.user)
-  outputProduct: OutputProduct;
+  outputProduct: OutputProduct[];
 }

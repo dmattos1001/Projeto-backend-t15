@@ -2,9 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Product } from "./product.entitys";
@@ -17,11 +15,12 @@ export class ProductOrder {
   name: string;
   @Column()
   quantityOfProducts: number;
+  @Column({ default: true })
+  isActive: boolean;
   @CreateDateColumn()
   requestDate: Date;
   @ManyToOne(() => User, { eager: true })
   user: User;
-  @OneToOne(() => Product, { eager: true })
-  @JoinColumn()
+  @ManyToOne(() => Product, { eager: true })
   product: Product;
 }

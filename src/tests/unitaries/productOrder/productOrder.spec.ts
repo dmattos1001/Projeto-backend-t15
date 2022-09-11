@@ -20,8 +20,7 @@ describe("/productOrder", () => {
       .catch((error) => {
         console.log(error);
       });
-
-    await request(app).post("/provider").send(mockedProvider);
+    await await await request(app).post("/provider").send(mockedProvider);
     const responseProvider = await request(app).get("/provider");
     mockedProduct.provider = responseProvider.body[0].id;
     await request(app).post("/category").send(mockedCategory);
@@ -35,7 +34,9 @@ describe("/productOrder", () => {
 
   test("POST /productOrder - Creating a order product", async () => {
     const proproduct = await request(app).get("/product");
-    mockedProductOrder.productId = proproduct.body[0].id;
+    mockedProductOrder.product = proproduct.body[0].id;
+    mockedProductOrder.user = proproduct.body[0].userId;
+    console.log(mockedProductOrder);
     const response = await request(app)
       .post("/productOrder")
       .send(mockedProductOrder);
@@ -49,7 +50,7 @@ describe("/productOrder", () => {
 
   test("POST /productOrder ", async () => {
     const proproduct = await request(app).get("/proproduct");
-    mockedProductOrder.productId = proproduct.body[0].id;
+    mockedProductOrder.product = proproduct.body[0].id;
     const response = await request(app)
       .post("/productOrder")
       .send(mockedProductOrder);
@@ -63,7 +64,7 @@ describe("/productOrder", () => {
 
   test("POST /productOrder - should not be able to create productOrder that already exists", async () => {
     const proproduct = await request(app).get("/proproduct");
-    mockedProductOrder.productId = proproduct.body[0].id;
+    mockedProductOrder.product = proproduct.body[0].id;
     const response = await request(app)
       .post("/productOrder")
       .send(mockedProductOrder);
