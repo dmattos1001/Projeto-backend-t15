@@ -1,4 +1,3 @@
-import { MinKey } from "typeorm";
 import * as yup from "yup";
 import { SchemaOf } from "yup";
 import { IProductEntrySchema } from "../interfaces/productEntry";
