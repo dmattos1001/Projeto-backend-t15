@@ -5,7 +5,7 @@ const outputProductGetIdController = async (req:Request, res:Response) =>{
     
       const id = req.params.id
 
-      const outputProduct = await outputProductGetIdService
+      const outputProduct = await outputProductGetIdService(id)
       return res.json(outputProduct)
         
    
