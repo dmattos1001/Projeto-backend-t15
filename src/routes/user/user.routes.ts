@@ -6,10 +6,12 @@ import updateUserController from "../../controller/user/updateUser.controller";
 import deleteUserController from "../../controller/user/deleteUser.controller";
 import administrationNivelThree from "../../middlewares/administrationNivelThree.middewars";
 import { tokenAuthMiddlewares } from "../../middlewares/tokenAuth.middleware";
+import validationMiddleware from "../../middlewares/validation.middleware";
+import { userSchema } from "../../schema/user.schema";
 
 export const userRouter = Router();
 
-userRouter.post("", createUserController);
+userRouter.post("", validationMiddleware(userSchema), createUserController);
 userRouter.get(
   "",
   tokenAuthMiddlewares,

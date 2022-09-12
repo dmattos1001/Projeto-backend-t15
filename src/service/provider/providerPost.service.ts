@@ -17,7 +17,6 @@ const providerPostService = async ({
 }: IProviderRequest): Promise<IProvider> => {
   const providerRepository = AppDataSource.getRepository(Provider);
   const cnpjVerify = await providerRepository.findOneBy({ cnpj: cnpj });
-  console.log("ola mundo");
   if (cnpjVerify) {
     throw new AppError("Cnpj already exists", 400);
   }
