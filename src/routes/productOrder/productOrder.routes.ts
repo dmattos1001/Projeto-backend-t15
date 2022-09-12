@@ -4,8 +4,8 @@ import listProductOrderController from "../../controller/productOrder/listProduc
 import profileProductOrderController from "../../controller/productOrder/profileProductOrder.controller";
 import administrationNivelTwo from "../../middlewares/administrationNivelTwo.middewars";
 import { tokenAuthMiddlewares } from "../../middlewares/tokenAuth.middleware";
+import productOrderSchema from "../../schema/productOrder.schema";
 import validationMiddleware from "../../middlewares/validation.middleware";
-import { productOrderSchema } from "../../schema/ProductOrder.schema";
 
 const productOrderRouter = Router();
 productOrderRouter.post(

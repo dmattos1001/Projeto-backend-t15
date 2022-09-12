@@ -3,7 +3,7 @@ import listProductOrderService from "../../service/productOrder/listProductOrder
 
 const listProductOrderController = async (req: Request, res: Response) => {
   const productOrder = await listProductOrderService();
-  return res.status(200).json(productOrder);
+  return res.status(200).json({ productOrder });
 };
 
 export default listProductOrderController;
