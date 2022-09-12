@@ -4,6 +4,7 @@ import request from "supertest"
 import app from "../../../app";
 import { mockedUserAdmNv2, mockedUserAdmNv3, mockerLoginAdmNv3, mockerLoginAdmNv2, mockerLoginAdmNv1 } from './../../mocks/mock';
 
+
 describe("/users", () => {
     let connection: DataSource
 
@@ -42,7 +43,6 @@ describe("/users", () => {
 
     test("POST /users -  creating a user with the same cpf",async () => {
         const response = await request(app).post("/users").send(mockedUserAdmNv3)
-
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(400)      
     })
@@ -51,8 +51,8 @@ describe("/users", () => {
         await request(app).post("/users").send(mockedUserAdmNv3)
         const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv3);
         const response = await request(app).get("/users").set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-
         expect(response.body).toHaveLength(1)
+
      
     })
 
@@ -112,6 +112,21 @@ describe("/users", () => {
      
     })
 
+
+    test("DELETE /users/:id -  deactivating a user whithout adm 3",async () => {
+        await request(app).post("/users").send(mockerLoginAdmNv2)
+
+        const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv2);
+        const userDesatived = await request(app).get("/users").set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
+
+        const response = await request(app).delete(`/users/${userDesatived.body[0].id}`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
+
+        expect(response.status).toHaveProperty("message")
+        expect(response.status).toBe(400)
+    })
+    
+
+
     test("DELETE /users/:id - deactivating an already deactivated user",async () => {
         await request(app).post("/users").send(mockerLoginAdmNv3)
 
@@ -166,7 +181,9 @@ describe("/users", () => {
         const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv3);
         const response = await request(app).patch(`/users/33933660-5dbe-453a-9a9d-5c73b31943cf`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
         
+
         expect(response.status).toBe(400)
+
         expect(response.body).toHaveProperty("message")
       });
     

@@ -15,7 +15,6 @@ const updatedUserService = async (
     id: id,
   });
   if (!user) {
-
     throw new AppError("Invalid userId", 400);
 
   }
