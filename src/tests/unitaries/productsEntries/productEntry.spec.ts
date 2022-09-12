@@ -10,7 +10,6 @@ import {
   mockedProvider,
   mockedUserAdmNv2,
   mockedUserAdmNv3,
-  mockerLoginAdmNv2,
   mockerLoginAdmNv3,
 } from "../../mocks/mock";
 import "dotenv/config";
