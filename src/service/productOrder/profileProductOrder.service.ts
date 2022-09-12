@@ -15,7 +15,7 @@ const profileProductOrderService = async (
     }
     return productOrderExist;
   } catch (err) {
-    throw new AppError("Invalid Id");
+    throw new AppError("Invalid Id", 404);
   }
 };
 export default profileProductOrderService;

@@ -86,7 +86,7 @@ export const mockedProduct: IProduct = {
   description: "sdsdsdsdsd",
   value: 5050,
   saleValue: 6500,
-  stock: 5,
+  stock: 50,
   criticalStock: 2,
   provider: "",
   category: "",
@@ -130,3 +130,10 @@ export const mockedProductEntryInvalid: IProductEntryRequest = {
   productsId: "654321",
   providerId: "XYZ",
 };
+
+export const mockedOutputProduct: IOutputProductsRequest = {
+name: "Placa de video",
+descriptio: "RTX 3080 4GB",
+quantity: 15,
+productId: "" 
+}

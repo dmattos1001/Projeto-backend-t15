@@ -14,12 +14,20 @@ interface IOutputProducts {
   message?: string | undefined;
 }
 
-interface IOutputProductsRequest {
+interface IOutputProductsReq {
   name: string;
   descriptio: string;
   quantity: number;
   userId: any;
   productId: any;
+
 }
 
-export { IOutputProductsSchema, IOutputProducts, IOutputProductsRequest };
+interface IOutputProductsRequest {
+  name: string;
+  descriptio: string;
+  quantity: number;
+  productId: any;
+}
+
+export { IOutputProductsSchema, IOutputProducts, IOutputProductsRequest, IOutputProductsReq };
