@@ -11,11 +11,12 @@ const updatedUserService = async (
   const userRepository = AppDataSource.getRepository(User);
   const addressRepository = AppDataSource.getRepository(Address);
 
-  const user = await userRepository.findOneByOrFail({
+  const user = await userRepository.findOneBy({
     id: id,
   });
   if (!user) {
-    throw new AppError("user is not found", 404);
+    throw new AppError("Invalid userId", 400);
+
   }
   const address = await addressRepository.findOneByOrFail({
     id: user.address.id,
@@ -42,6 +43,9 @@ const updatedUserService = async (
     cell: userUpdateData.cell || user.cell,
   };
   await userRepository.update(id, updatedUser);
-  return user;
+  const userupdated = await userRepository.findOneByOrFail({
+    id: id,
+  });
+  return userupdated;
 };
 export default updatedUserService;

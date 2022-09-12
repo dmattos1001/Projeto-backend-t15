@@ -2,9 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Product } from "./product.entitys";
@@ -23,10 +21,8 @@ export class ProductEntry {
   quantity: number;
   @ManyToOne(() => User, { eager: true })
   user: User;
-  @OneToOne(() => Product, { eager: true })
-  @JoinColumn()
+  @ManyToOne(() => Product, { eager: true })
   product: Product;
-  @OneToOne(() => Provider, { eager: true })
-  @JoinColumn()
+  @ManyToOne(() => Provider)
   provider: Provider;
 }

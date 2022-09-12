@@ -1,3 +1,4 @@
+import { Any } from "typeorm";
 import AppDataSource from "../../data.source";
 import { Product } from "../../entities/product.entitys";
 import { ProductEntry } from "../../entities/ProductEntry.entitys";
@@ -40,17 +41,25 @@ const createProductEntryService = async ({
     throw new AppError("Quantity must be at least 1", 400);
   }
 
-  const newProductEntry = productEntryRepository.create({
-    name,
+  const newEntry = {
+    name: productExists.name,
     quantity,
     product: productExists,
     user: userExists,
     provider: providerExists,
-  });
+  };
 
-  await productEntryRepository.save(newProductEntry);
+  productEntryRepository.create(newEntry);
 
-  return newProductEntry;
+  await productEntryRepository.save(newEntry);
+
+  return {
+    name: productExists.name,
+    quantity,
+    productsId,
+    userId,
+    providerId,
+  };
 };
 
 export default createProductEntryService;
