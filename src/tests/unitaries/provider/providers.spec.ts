@@ -21,10 +21,9 @@ describe("/provider", () => {
     })
 
     test("POST /provider - Creating a new provider ",async () => {
-        const response = await request(app).post("/provider").send(mockedProvider)
-        await request(app).post("/users").send(mockedUserAdmNv3)
+        await request(app).post("/users").send(mockerLoginAdmNv3)
         const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv3);
-        await request(app).post("/provider").set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
+        const response = await request(app).post("/provider").set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
 
         expect(response.body).toHaveProperty("name")
         expect(response.body).toHaveProperty("telephone")
@@ -40,6 +39,8 @@ describe("/provider", () => {
 
 
     test("POST /provider -  shouldn't be able to create an equal cnpj already exists",async () => {
+        await request(app).post("/users").send(mockerLoginAdmNv3)
+        await request(app).post("/login").send(mockerLoginAdmNv3);
         const response = await request(app).post("/provider").send(mockedProviderEqualCnpj)
 
         expect(response.body).toHaveProperty("message")
@@ -53,7 +54,7 @@ describe("/provider", () => {
         const responseAdm1 = await request(app).post("/provider").set("Authorization", `Bearer ${adm1LoginResponse.body.token}`)
         
         expect(responseAdm1.body).toHaveProperty("message")
-        expect(responseAdm1.status).toBe(400)
+        expect(responseAdm1.status).toBe(403)
        
     })
 
@@ -63,7 +64,7 @@ describe("/provider", () => {
         const responseAdm2 = await request(app).post("/provider").set("Authorization", `Bearer ${adm2LoginResponse.body.token}`)
 
         expect(responseAdm2.body).toHaveProperty("message")
-        expect(responseAdm2.status).toBe(400)
+        expect(responseAdm2.status).toBe(403)
     })
 
     test("GET /provider -  should be able to list all providers adm2",async () => {
