@@ -20,7 +20,7 @@ describe("/productOrder", () => {
       .catch((error) => {
         console.log(error);
       });
-    await await await request(app).post("/provider").send(mockedProvider);
+    await request(app).post("/provider").send(mockedProvider);
     const responseProvider = await request(app).get("/provider");
     mockedProduct.provider = responseProvider.body[0].id;
     await request(app).post("/category").send(mockedCategory);

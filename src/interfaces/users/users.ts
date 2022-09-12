@@ -8,9 +8,18 @@ interface IUser {
   telephone: string;
   cell: string;
   address: IAdressRequest;
-  
 }
-
+export interface IUserSchema {
+  name: string;
+  email: string;
+  password: string;
+  cpf: string;
+  administrationNivel: string;
+  occupation: string;
+  telephone?: string;
+  cell: string;
+  address: IAdressRequest;
+}
 interface IUserRequest {
   name: string;
   email: string;

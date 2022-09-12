@@ -9,7 +9,12 @@ export interface IProductEntryRequest {
   productsId: string;
   providerId: string;
 }
-
+export interface IProductEntrySchema {
+  name: string;
+  quantity: string;
+  productsId: string;
+  providerId: string;
+}
 export interface IProductEntry {
   id: string;
   name: string;

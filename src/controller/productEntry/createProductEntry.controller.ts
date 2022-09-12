@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import createProductEntryService from "../../service/productEntry/createProductEntry.service";
 
 const createProductEntryController = async (req: Request, res: Response) => {
-  const { name, quantity, userId, productsId, providerId } = req.body;
-
+  const { name, quantity, productsId, providerId } = req.body;
+  const userId = req.user.id;
   const productEntry = await createProductEntryService({
     name,
     quantity,

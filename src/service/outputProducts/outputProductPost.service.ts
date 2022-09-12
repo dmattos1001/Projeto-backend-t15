@@ -1,51 +1,61 @@
-import { IOutputProducts, IOutputProductsRequest } from './../../interfaces/outputProducts/outputProducts';
-import AppDataSource from './../../data.source';
-import { OutputProduct } from '../../entities/outputProduct.entitys';
-import { AppError } from '../../errors/AppErros';
+import {
+  IOutputProducts,
+  IOutputProductsRequest,
+} from "./../../interfaces/outputProducts/outputProducts";
+import AppDataSource from "./../../data.source";
+import { OutputProduct } from "../../entities/outputProduct.entitys";
+import { AppError } from "../../errors/AppErros";
+import { Product } from "../../entities/product.entitys";
 
-
-const outputProductPostService = async ({name,descriptio,quantity,outputdate,userId,productId}: IOutputProductsRequest): Promise<IOutputProducts> =>{
-
-const outputProductRepository = AppDataSource.getRepository(OutputProduct); 
-const outputProductFind = await outputProductRepository.findOneBy({name:name})
-const outputProductFindId = await outputProductRepository.findOneBy({id:productId})
-
-if(outputProductFind){
-throw new AppError("Product Order already Exists", 400)
-}
-
-if(!outputProductFind){
-  throw new AppError("Product not found", 404)
+const outputProductPostService = async ({
+  name,
+  descriptio,
+  quantity,
+  userId,
+  productId,
+}: IOutputProductsRequest): Promise<IOutputProducts> => {
+  const outputProductRepository = AppDataSource.getRepository(OutputProduct);
+  const productRepository = AppDataSource.getRepository(Product);
+  const outputProductFind = await outputProductRepository.findOneBy({
+    name: name,
+  });
+  if (outputProductFind) {
+    throw new AppError("Product Order already Exists", 400);
+  }
+  const productExistis = await productRepository.findOneBy({ id: productId });
+  if (!productExistis) {
+    throw new AppError("Product not found", 404);
   }
 
-if(outputProductFindId){
-    if(quantity > 0){
-      quantity -= 1
-    } else{
-      quantity = 0
-    throw new AppError("it is necessary to supply",400)
-    }
-}
+  if (productExistis.stock - quantity <= 0) {
+    throw new AppError("don't have enough stock", 400);
+  }
 
-    const newOutputProduct = new OutputProduct()
-    newOutputProduct.name = name,
-    newOutputProduct.descriptio = descriptio,
-    newOutputProduct.quantity = quantity,
-    newOutputProduct.outputdate = new Date(),
-    newOutputProduct.user = userId,
-    newOutputProduct.product = productId
-    await outputProductRepository.create(newOutputProduct);
-    await outputProductRepository.save(newOutputProduct)
+  let message = undefined;
+  if (productExistis.stock - quantity <= productExistis.criticalStock) {
+    message = "quantity of products at critical level";
+  }
 
-    return{
-      id: newOutputProduct.id,
-      name: newOutputProduct.name,
-      descriptio: newOutputProduct.descriptio,
-      quantity:  newOutputProduct.quantity, 
-      outputdate:  newOutputProduct.outputdate,
-      userId: newOutputProduct.user,
-      productId: newOutputProduct.product
-    }
-}
+  const newOutputProduct = new OutputProduct();
+  (newOutputProduct.name = name),
+    (newOutputProduct.descriptio = descriptio),
+    (newOutputProduct.quantity = quantity),
+    (newOutputProduct.user = userId),
+    (newOutputProduct.product = productId);
+  outputProductRepository.create(newOutputProduct);
+  await outputProductRepository.save(newOutputProduct);
+  productRepository.update(productId, {
+    stock: productExistis.stock - quantity,
+  });
+  return {
+    id: newOutputProduct.id,
+    name: newOutputProduct.name,
+    descriptio: newOutputProduct.descriptio,
+    quantity: newOutputProduct.quantity,
+    userId: newOutputProduct.user,
+    productId: newOutputProduct.product,
+    message: message,
+  };
+};
 
-export default outputProductPostService
+export default outputProductPostService;

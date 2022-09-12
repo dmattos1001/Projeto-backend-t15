@@ -4,3 +4,9 @@ export interface IProductOrderRequest {
   user: string;
   product: string;
 }
+export interface IProductOrderSchema {
+  name: string;
+  quantityOfProducts: string;
+  user: string;
+  product: string;
+}
