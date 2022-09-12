@@ -2,7 +2,7 @@ import { DataSource } from "typeorm";
 import AppDataSource from "../../../data.source";
 import request from "supertest"
 import app from "../../../app";
-import { mockedUserAdmNv2, mockedUserAdmNv3, mockerLoginAdmNv3, mockedUserAdmNv1 } from './../../mocks/mock';
+import { mockedUserAdmNv2, mockedUserAdmNv3, mockerLoginAdmNv3, mockedUserAdmNv1, mockerLoginAdmNv2 } from './../../mocks/mock';
 import createUserService from './../../../service/user/createUser.service';
 
 
