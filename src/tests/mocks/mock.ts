@@ -106,13 +106,13 @@ export const mockedProvider: IProviderRequest = {
 };
 
 export const mockedProviderEqualCnpj: IProviderRequest = {
-  name: "Byte",
+  name: "TeraByte",
   telephone: "4599127189",
   email: "byte@mail.com",
   cnpj: "63519017/0001-70",
   address: "Rua President Wilson - 1082, Centro, Santos - SP",
   employee: "Melissa de Souza Rodrigues",
-  employeeCell: "1493918890",
+  employeeCell: "1333249899",
 };
 
 export const mockedProductEntry: IProductEntryRequest = {
