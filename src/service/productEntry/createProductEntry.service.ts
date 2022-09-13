@@ -1,4 +1,3 @@
-import { Any } from "typeorm";
 import AppDataSource from "../../data.source";
 import { Product } from "../../entities/product.entitys";
 import { ProductEntry } from "../../entities/ProductEntry.entitys";
