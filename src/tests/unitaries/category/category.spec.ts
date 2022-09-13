@@ -2,9 +2,10 @@ import { DataSource } from "typeorm";
 import AppDataSource from "../../../data.source";
 import request from "supertest"
 import app from "../../../app";
-import { mockedCategory, mockedUserAdmNv1, mockedUserAdmNv2, mockerLoginAdmNv1, mockerLoginAdmNv2 } from "../../mocks/mock";
+import { mockedCategory, mockedUserAdmNv1, mockedUserAdmNv3, mockerLoginAdmNv1, mockerLoginAdmNv3 } from "../../mocks/mock";
+import createUserService from "../../../service/user/createUser.service";
 
-describe("/users", () => {
+describe("/category", () => {
     let connection: DataSource
 
     beforeAll(async() => {
@@ -13,6 +14,9 @@ describe("/users", () => {
         }).catch((err) => {
             console.error("Error during Data Source initialization", err)
         })
+        await createUserService(mockedUserAdmNv3);
+        await createUserService(mockedUserAdmNv1);
+        await request(app).post("/login").send(mockerLoginAdmNv3);
     })
 
     afterAll(async() => {
@@ -21,11 +25,9 @@ describe("/users", () => {
 
     test("POST /category - Creating a new category adm2",async () => {
 
-        const response = await request(app).post("/category").send(mockedCategory);
-        await request(app).post("/users").send(mockedUserAdmNv2);
-        const adminLoginResponse = await request(app).post("/login").send(mockedUserAdmNv2);
-        await request(app).post("/category").set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-        
+        const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv3);
+        const response = await request(app).post("/category").set("Authorization", `Bearer ${adminLoginResponse.body.token}`).send(mockedCategory)
+                
         expect(response.body).toHaveProperty("name");
         expect(response.body).toHaveProperty("description");
         expect(response.status).toBe(201); 
@@ -33,7 +35,9 @@ describe("/users", () => {
     });
 
     test("POST /category -  shouldn't be able to create an equal name already exists",async () => {
-        const response = await request(app).post("/category").send(mockedCategory);
+
+        const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv3);
+        const response = await request(app).post("/category").set("Authorization", `Bearer ${adminLoginResponse.body.token}`).send(mockedCategory);
 
         expect(response.body).toHaveProperty("message");
         expect(response.status).toBe(400);
@@ -51,11 +55,13 @@ describe("/users", () => {
     });
 
     test("GET /category -  should be able to list all categories adm2",async () => {
-        await request(app).post("/users").send(mockedUserAdmNv2)
-        const admin2LoginResponse = await request(app).post("/login").send(mockerLoginAdmNv2);
-        const adm2Response = await request(app).get("/provider").set("Authorization", `Bearer ${admin2LoginResponse.body.token}`)
 
-        expect(adm2Response.body).toHaveLength(1)
+        const admin2LoginResponse = await request(app).post("/login").send(mockerLoginAdmNv3);
+        const response = await request(app).get("/category").set("Authorization", `Bearer ${admin2LoginResponse.body.token}`)
+
+        expect(response.body[0]).toHaveProperty("name");
+        expect(response.body[0]).toHaveProperty("description");
+        expect(response.status).toBe(200); 
      
     });
     
