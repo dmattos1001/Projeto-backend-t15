@@ -5,14 +5,12 @@ import { Provider } from "../../entities/provider.entitys";
 const providerGetIdService = async(id: string): Promise<any> => {
  
     const providerRepository = AppDataSource.getRepository(Provider)
-    const findProvider = await providerRepository.find()
-    const findId = findProvider.find((element)=> element.id === id)
+    const providerIdFind = await providerRepository.findOneBy({id:id})
     
-    if(!findId){
+    if(!providerIdFind){
         throw new AppError("Provider is not found",404)
     }
 
-    const providerIdFind = await providerRepository.findOneBy({id:id})
 
     return providerIdFind
 

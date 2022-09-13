@@ -2,7 +2,9 @@ import { DataSource } from "typeorm";
 import AppDataSource from "../../../data.source";
 import request from "supertest"
 import app from "../../../app";
-import { mockedUserAdmNv2, mockedUserAdmNv3, mockerLoginAdmNv3, mockedUserAdmNv1, mockerLoginAdmNv2 } from './../../mocks/mock';
+
+import { mockedUserAdmNv2, mockedUserAdmNv3, mockerLoginAdmNv3, mockedUserAdmNv1, mockerLoginAdmNv1 } from './../../mocks/mock';
+
 import createUserService from './../../../service/user/createUser.service';
 
 
@@ -123,9 +125,9 @@ describe("/users", () => {
 
 
     test("DELETE /users/:id -  deactivating a user whithout adm 3",async () => {
-        await request(app).post("/users").send(mockerLoginAdmNv2)
+        await request(app).post("/users").send(mockerLoginAdmNv1)
 
-        const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv2);
+        const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv1);
         const userDesatived = await request(app).get("/users").set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
 
         const response = await request(app).delete(`/users/${userDesatived.body[0].id}`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
