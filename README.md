@@ -24,8 +24,8 @@ A base url da API é https://estoque-t15.herokuapp.com
 `POST /login - Formato da requisição`
 ```json
 {
-	"cnf": "06053245625",
-	"password": "3636"
+	"cpf": "06053245625",
+	"password": "Teste123*"
 }
 ```
 
@@ -47,13 +47,17 @@ O token deverá ser informado no header da requisição no formato:
 
 <h2 align ='center'> Criando usuário </h2>
 
+<ul>
+<li>A senha deve conter ao menos uma letra maiúscula, minúscula, número e um caractere espercial</li>
+</ul>
+
 `POST /users Formato da requisição`
 
 ```json
 {
   "name": "hitalo",
   "email": "hitaloMenorLucas@gmail.com",
-  "password": "3636",
+  "password": "Teste123*",
   "cpf": "06053245625",
   "administrationNivel": 3,
   "occupation": "senior",
@@ -159,7 +163,9 @@ Necessário administrationNivel 3
 <h2 align ='center'> Deletando um usuário </h2>
 
 `DELETE /users/:id - Formato da resposta - STATUS 204`
+
 Está rota dá um soft delete no usuário alterando o isActive para false
+
 Necessário administrationNivel 3
 
 <h2 align ='center'> Editando um usuário </h2>
@@ -199,7 +205,7 @@ Necessário administrationNivel 3
 ```
 Necessário administrationNivel 3
 
-<h2 align ='center'> listando acessos de usuários </h2>
+<h2 align ='center'> Listando acessos de usuários </h2>
 
 `GET /accesslog - Formato da resposta - STATUS 200`
 
@@ -234,7 +240,7 @@ Necessário administrationNivel 3
 ```
 Necessário administrationNivel 3
 
-<h2 align ='center'> listando um acesso de usuário </h2>
+<h2 align ='center'> Listando um acesso de usuário </h2>
 
 `GET /accesslog/:id Formato da resposta - STATUS 200`
 
@@ -267,7 +273,7 @@ Necessário administrationNivel 3
 ```
 Necessário administrationNivel 3
 
-<h2 align ='center'> criando categoria </h2>
+<h2 align ='center'> Criando categoria </h2>
 
 `POST /category - Formato da requisição`
 
@@ -362,6 +368,20 @@ Necessário administrationNivel 2+
 
 `POST /provider - Formato da resposta - STATUS 201 CREATED`
 
+```json
+{
+	"name": "Megabyte",
+	"telephone": "1333240499",
+	"email": "megaByte@mail.com",
+	"cnpj": "63519017/0001-70",
+	"address": "Rua Candido Rodrigues - 1082, Centro, São Vicente - SP",
+	"employee": "Larissa Regina Sales",
+	"employeeCell": "1333240499",
+	"id": "857f7533-26a3-4175-a6aa-1188df27de63"
+}
+```
+Necessário administrationNivel 3
+
 <h2 align ='center'> Listar providers </h2>
 
 `GET /provider - Formato da resposta`
@@ -380,6 +400,7 @@ Necessário administrationNivel 2+
 	}
 ]
 ```
+Necessário administrationNivel 2+
 
 <h2 align ='center'> Listar um provider </h2>
 
@@ -397,6 +418,7 @@ Necessário administrationNivel 2+
 	"employeeCell": "1333240499"
 }
 ```
+Necessário administrationNivel 2+
 
 <h2 align ='center'> Criar um product </h2>
 
@@ -444,6 +466,7 @@ Necessário administrationNivel 2+
 	"isActive": true
 }
 ```
+Necessário administrationNivel 3
 
 <h2 align ='center'> Listar products </h2>
 
@@ -478,6 +501,7 @@ Necessário administrationNivel 2+
 	}
 ]
 ```
+Necessário administrationNivel 2+
 
 <h2 align ='center'> Listar um product </h2>
 
@@ -510,6 +534,7 @@ Necessário administrationNivel 2+
 	}
 }
 ```
+Necessário administrationNivel 2+
 
 <h2 align ='center'> Criar productEntry </h2>
 
@@ -519,7 +544,6 @@ Necessário administrationNivel 2+
 {
   "name": "placa de video",
   "quantity": 15,
-  "userId": "296aa1b5-8140-4de4-9cc3-36d4e61f65d9",
   "productsId": "2b0c98da-39f5-4fcc-9115-6698b15b96cf",
   "providerId": "857f7533-26a3-4175-a6aa-1188df27de63"
 }
@@ -536,6 +560,7 @@ Necessário administrationNivel 2+
 	"providerId": "857f7533-26a3-4175-a6aa-1188df27de63"
 }
 ```
+Necessário administrationNivel 3
 
 <h2 align ='center'> Listar productEntry </h2>
 
@@ -597,6 +622,7 @@ Necessário administrationNivel 2+
 	}
 ]
 ```
+Necessário administrationNivel 2+
 
 <h2 align ='center'> Listar um productEntry </h2>
 
@@ -612,6 +638,7 @@ Necessário administrationNivel 2+
 	"userId": "296aa1b5-8140-4de4-9cc3-36d4e61f65d9"
 }
 ```
+Necessário administrationNivel 2+
 
 <h2 align ='center'> Criar outputProduct </h2>
 
@@ -638,6 +665,7 @@ Necessário administrationNivel 2+
 	"productId": "2b0c98da-39f5-4fcc-9115-6698b15b96cf"
 }
 ```
+Necessário administrationNivel 3
 
 <h2 align ='center'> Listar outputProducts </h2>
 
@@ -700,6 +728,7 @@ Necessário administrationNivel 2+
 	}
 ]
 ```
+Necessário administrationNivel 2+
 
 <h2 align ='center'> Listar um outputProduct </h2>
 
@@ -760,6 +789,7 @@ Necessário administrationNivel 2+
 	}
 }
 ```
+Necessário administrationNivel 2+
 
 <h2 align ='center'> Criar productOrder </h2>
 
@@ -779,3 +809,23 @@ Necessário administrationNivel 2+
 ```json
 
 ```
+Necessário administrationNivel 3
+
+<h2 align ='center'> Listar product Order </h2>
+
+`GET /productOrder - Formato da resposta`
+
+```json
+
+```
+
+Necessário administrationNivel 2+
+
+<h2 align ='center'> Listar um product Order </h2>
+
+`GET /productOrder/:id - Formato da resposta`
+
+```json
+
+```
+Necessário administrationNivel 2+
