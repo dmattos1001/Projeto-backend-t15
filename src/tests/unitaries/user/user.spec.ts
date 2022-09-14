@@ -3,7 +3,7 @@ import AppDataSource from "../../../data.source";
 import request from "supertest"
 import app from "../../../app";
 
-import { mockedUserAdmNv2, mockedUserAdmNv3, mockerLoginAdmNv3, mockedUserAdmNv1, mockerLoginAdmNv1 } from './../../mocks/mock';
+import { mockedUserAdmNv2, mockedUserAdmNv3, mockerLoginAdmNv3, mockedUserAdmNv1, mockerLoginAdmNv1, mockedUserAdmNv3CpfInvalid, mockerLoginAdmNv2 } from './../../mocks/mock';
 
 import createUserService from './../../../service/user/createUser.service';
 
@@ -52,8 +52,9 @@ describe("/users", () => {
     test("POST /users -  creating a user with the same cpf",async () => {
 
         const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv3);
-        const response = await request(app).get("/users").set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-        expect(response.body).toHaveProperty("message")
+        const response = await request(app).post("/users").set("Authorization", `Bearer ${adminLoginResponse.body.token}`).send(mockedUserAdmNv3CpfInvalid)
+
+        expect(response.body).toHaveProperty("error")
         expect(response.status).toBe(400)      
     })
 
@@ -62,7 +63,21 @@ describe("/users", () => {
         const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv3);
         const response = await request(app).get("/users").set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
 
-        expect(response.body).toHaveLength(3)
+        expect(response.body[0]).toHaveProperty("name")
+        expect(response.body[0]).toHaveProperty("cpf")
+        expect(response.body[0]).toHaveProperty("email")
+        expect(response.body[0]).toHaveProperty("password")
+        expect(response.body[0]).toHaveProperty("administrationNivel")
+        expect(response.body[0]).toHaveProperty("occupation")
+        expect(response.body[0]).toHaveProperty("telephone")
+        expect(response.body[0]).toHaveProperty("cell")
+        expect(response.body[0]).toHaveProperty("address")
+        expect(response.body[0].address).toHaveProperty("district")
+        expect(response.body[0].address).toHaveProperty("zipCode")
+        expect(response.body[0].address).toHaveProperty("number")
+        expect(response.body[0].address).toHaveProperty("city")
+        expect(response.body[0].address).toHaveProperty("state")
+        expect(response.status).toBe(200)   
 
      
     })
@@ -76,7 +91,7 @@ describe("/users", () => {
     })
 
     test("GET /users -  should not be able to list users not being admin three",async () => {
-        const userLoginResponse = await request(app).post("/login").send(mockedUserAdmNv2);
+        const userLoginResponse = await request(app).post("/login").send(mockedUserAdmNv1);
         const response = await request(app).get("/users").set("Authorization", `Bearer ${userLoginResponse.body.token}`)
 
         expect(response.body).toHaveProperty("message")
@@ -110,9 +125,24 @@ describe("/users", () => {
      
     })
 
-    test("DELETE /users/:id -  deactivating a user",async () => {
-        await request(app).post("/users").send(mockerLoginAdmNv3)
+    test("DELETE /users/:id -  deactivating a user whithout adm 3",async () => {
+        const adminLoginResponse = await request(app).post("/login").send(mockedUserAdmNv2);
+        const response = await request(app).get("/users").set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
+        
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(403)
+    })
+    
+    test("DELETE /users/:id -  should not be able to delete user with invalid id",async () => {
+        const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv3);
+        
+        const response = await request(app).delete(`/users/33933660-5dbe-453a-9a9d-5c73b31943cf`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
+        expect(response.status).toBe(400)
+        expect(response.body).toHaveProperty("message")
+     
+    })
 
+   test("DELETE /users/:id -  deactivating a user",async () => {
         const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv3);
         const userDesatived = await request(app).get("/users").set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
 
@@ -121,70 +151,43 @@ describe("/users", () => {
         expect(response.status).toBe(204)
         expect(findUser.body[0].isActive).toBe(false)
      
-    });
-
-
-    test("DELETE /users/:id -  deactivating a user whithout adm 3",async () => {
-        await request(app).post("/users").send(mockerLoginAdmNv1)
-
-        const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv1);
-        const userDesatived = await request(app).get("/users").set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-
-        const response = await request(app).delete(`/users/${userDesatived.body[0].id}`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-
-        expect(response.status).toHaveProperty("message")
-        expect(response.status).toBe(400)
-    })
+    });  
     
-
-
     test("DELETE /users/:id - deactivating an already deactivated user",async () => {
-        await request(app).post("/users").send(mockerLoginAdmNv3)
-
         const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv3);
         const userDeactivating = await request(app).get("/users").set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
 
         const response = await request(app).delete(`/users/${userDeactivating.body[0].id}`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-        expect(response.status).toBe(404)
-        expect(response.body).toHaveProperty("message")
-     
-    })
-
-    test("DELETE /users/:id -  should not be able to delete user with invalid id",async () => {
-        await request(app).post("/users").send(mockerLoginAdmNv3)
-
-        const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv3);
-        
-        const response = await request(app).delete(`/users/33933660-5dbe-453a-9a9d-5c73b31943cf`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-        expect(response.status).toBe(404)
+        expect(response.status).toBe(400)
         expect(response.body).toHaveProperty("message")
      
     })
 
     test("PATCH /users/:id - trying to update a user", async () => {
-        await request(app).post("/users").send(mockerLoginAdmNv3)
         const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv3);
         const userPatch = await request(app).get("/users").set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
         const response = await request(app).patch(`/users/${userPatch.body[0].id}`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
         
         expect(response.status).toEqual(201)
-        expect(userPatch.body).toEqual(expect.objectContaining({
-            name: userPatch.body.name,
-            cpf: userPatch.body.cpf,
-            email: userPatch.body.email,
-            password: userPatch.body.password,
-            administrationNivel: userPatch.body.administrationNivel,
-            occupation: userPatch.body.occupation,
-            telephone: userPatch.body.telephone,
-            cell: userPatch.body.cell,
-            address: userPatch.body.address,
-            district: userPatch.body.address.district,
-            zipCode: userPatch.body.address.zipCode,
-            number: userPatch.body.address.number,
-            city: userPatch.body.address.city,
-            state: userPatch.body.address.state, 
-          }) )
-          
+        expect(response.body).toEqual(expect.objectContaining({
+            name: response.body.name,
+            cpf: response.body.cpf,
+            email: response.body.email,
+            password: response.body.password,
+            administrationNivel: response.body.administrationNivel,
+            occupation: response.body.occupation,
+            telephone: response.body.telephone,
+            cell: response.body.cell,
+            address:{
+            id: response.body.address.id,
+            district: response.body.address.district,
+            zipCode: response.body.address.zipCode,
+            number: response.body.address.number,
+            city: response.body.address.city,
+            state: response.body.address.state, 
+            },
+    }))
+        
       });
 
       test("PATCH /users/:id - trying to update a user that does not exist", async () => {
@@ -194,7 +197,6 @@ describe("/users", () => {
         
 
         expect(response.status).toBe(400)
-
         expect(response.body).toHaveProperty("message")
       });
     

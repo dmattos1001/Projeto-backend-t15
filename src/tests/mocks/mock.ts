@@ -23,6 +23,24 @@ export const mockedUserAdmNv3: IUser = {
     state: "SP",
   },
 };
+
+export const mockedUserAdmNv3CpfInvalid: IUser = {
+  name: "Laissa",
+  email: "Laissa@gmail.com",
+  password: "B@linha123",
+  cpf: "06053245625",
+  administrationNivel: 3,
+  occupation: "senior",
+  telephone: "6133658755",
+  cell: "61994133544",
+  address: {
+    district: "Rua joão marion",
+    zipCode: "11320905",
+    number: "148",
+    city: "Cubatão",
+    state: "SP",
+  },
+}
 export const mockedUserAdmNv2: IUser = {
   name: "hitalo",
   email: "hitaloMenoLucas@gmail.com",
