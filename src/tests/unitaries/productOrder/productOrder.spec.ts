@@ -136,7 +136,7 @@ describe("/productOrder", () => {
       .post("/productOrder")
       .set("Authorization", `Bearer ${login.body.token}`)
       .send(mockedProductOrder);
-    console.log(response.body);
+ 
     expect(response.body).toHaveProperty("message");
     expect(response.status).toBe(404);
   });
