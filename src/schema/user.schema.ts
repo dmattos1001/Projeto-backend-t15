@@ -7,7 +7,7 @@ const userSchema: SchemaOf<IUserSchema> = yup.object().shape({
   email: yup.string().email().required(),
   cpf: yup
     .string()
-    .matches(/^(\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2})$/, "CPF invalid")
+    .matches(/^(\d{3}\.?\d{3}\.?\d{3}-?\d{2})$/, "CPF invalid")
     .required(),
   password: yup
     .string()

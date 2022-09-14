@@ -3,12 +3,14 @@ import createProductOrderService from "../../service/productOrder/createProductO
 
 const createProductOrderController = async (req: Request, res: Response) => {
   const user = req.user.id;
+  const email = req.user.emailAdm;
   const { name, quantityOfProducts, product } = req.body;
   const productOrder = await createProductOrderService({
     name,
     quantityOfProducts,
     user,
     product,
+    email,
   });
   return res.status(201).json(productOrder);
 };

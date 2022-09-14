@@ -29,6 +29,7 @@ const sessionsCreateService = async ({
   const token = JWT.sign(
     {
       administrationNivel: user.administrationNivel,
+      emailAdm: user.email,
     },
     process.env.SECRET_KEY as string,
     {

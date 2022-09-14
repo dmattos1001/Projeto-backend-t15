@@ -4,12 +4,13 @@ import { ProductOrder } from "../../entities/productOrder.entitys";
 import { User } from "../../entities/user.entitys";
 import { AppError } from "../../errors/AppErros";
 import { IProductOrderRequest } from "../../interfaces/productOrder/productOrder";
-
+import { sendEmail } from "../../sendEmail/nodemailer.util";
 const createProductOrderService = async ({
   name,
   quantityOfProducts,
   user,
   product,
+  email,
 }: IProductOrderRequest): Promise<ProductOrder> => {
   const productOrderRepository = AppDataSource.getRepository(ProductOrder);
   const userRepository = AppDataSource.getRepository(User);
@@ -23,20 +24,39 @@ const createProductOrderService = async ({
   if (nameExists) {
     throw new AppError("Product name already registered", 400);
   }
-  const productExists = await productOrderRepository.find();
-  const productIdExits = productExists.find(
-    (element) => element.product.id === product
-  );
-  // if (productIdExits) {
-  //   throw new AppError("product order already exists for this product", 400);
-  // }
   const newProductOrder = productOrderRepository.create({
     name,
     quantityOfProducts,
     user: userExist,
     product: productExist,
   });
-  await productOrderRepository.save(newProductOrder);
+  const ProductOrderfind = await productOrderRepository.save(newProductOrder);
+  const data = new Date();
+  data.setDate(data.getDate() + 5);
+  const schedule = require("node-schedule");
+  const job = schedule.scheduleJob(data, async () => {
+    await sendEmail({
+      subject: `
+      Product order of name ${ProductOrderfind.name} was created day ${ProductOrderfind.requestDate} just expired day ${data} `,
+      text: "Product order expiration",
+      to: email,
+    });
+    await productOrderRepository.update(ProductOrderfind.id, {
+      isActive: false,
+    });
+  });
+  job.nextInvocation();
+  data.setDate(data.getDate() + 7);
+  const job2 = schedule.scheduleJob(data, async () => {
+    await sendEmail({
+      subject: `
+        The product order with the name ${ProductOrderfind.name} was deleted ${data} `,
+      text: "Product order expiration",
+      to: email,
+    });
+    await productOrderRepository.delete(ProductOrderfind.id);
+  });
+  job2.nextInvocation();
   return newProductOrder;
 };
 
