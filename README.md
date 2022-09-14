@@ -883,8 +883,8 @@ Necessário administrationNivel 2+
 {
   "name": "Placa de video",
   "quantityOfProducts": 1,
-  "product": "2b0c98da-39f5-4fcc-9115-6698b15b96cf",
-  "user": "296aa1b5-8140-4de4-9cc3-36d4e61f65d9"
+	"isActive": true,
+  "product": "de3610f7-45fa-4296-9802-928fd32001ca"
 }
 ```
 
@@ -900,7 +900,63 @@ Necessário administrationNivel 3
 `GET /productOrder - Formato da resposta - STATUS 200`
 
 ```json
-
+{
+	"productOrder": [
+		{
+			"id": "72499196-73eb-4082-bf8d-ba2f296c54ff",
+			"name": "Placa de video",
+			"quantityOfProducts": 1,
+			"isActive": true,
+			"requestDate": "2022-09-14T20:21:24.989Z",
+			"user": {
+				"id": "46ba7038-96d5-42dd-a998-55245b97cb59",
+				"name": "hitalo",
+				"cpf": "98765432112",
+				"email": "teste@gmail.com",
+				"password": "$2a$10$DITlkLaZNHlUY1kbikuO7OC.z6mUVURKb4oRVbH76c2L8F/QD5.3K",
+				"contractDate": "2022-09-14T20:18:44.858Z",
+				"administrationNivel": 3,
+				"isActive": true,
+				"occupation": "senior",
+				"telephone": "6133658755",
+				"cell": "61994133544",
+				"address": {
+					"id": "ed39113d-bf83-4de8-95a1-0281fb24e786",
+					"district": "Rua Heleodo Pires de camargo",
+					"zipCode": "72215093",
+					"number": "67",
+					"city": "Piedade",
+					"state": "SP"
+				}
+			},
+			"product": {
+				"id": "de3610f7-45fa-4296-9802-928fd32001ca",
+				"name": "placa de video",
+				"description": "sdsdsdsdsd",
+				"isActive": true,
+				"value": 5050,
+				"saleValue": 6500,
+				"stock": 5,
+				"criticalStock": 2,
+				"provider": {
+					"id": "e5c93347-1e30-4d57-af9f-d13b275a36b3",
+					"name": "Megabyte",
+					"telephone": "1333240499",
+					"email": "megaByte@mail.com",
+					"cnpj": "63519017/0001-70",
+					"address": "Rua Candido Rodrigues - 1082, Centro, São Vicente - SP",
+					"employee": "Larissa Regina Sales",
+					"employeeCell": "1333240499"
+				},
+				"category": {
+					"id": "c8346d95-dbbe-45f9-8d93-3dd8098043ec",
+					"name": "placas",
+					"description": "placas em geral"
+				}
+			}
+		}
+	]
+}
 ```
 
 Necessário administrationNivel 2+
@@ -910,7 +966,59 @@ Necessário administrationNivel 2+
 `GET /productOrder/:id - Formato da resposta - STATUS 200`
 
 ```json
-
+{
+	"id": "72499196-73eb-4082-bf8d-ba2f296c54ff",
+	"name": "Placa de video",
+	"quantityOfProducts": 1,
+	"isActive": true,
+	"requestDate": "2022-09-14T20:21:24.989Z",
+	"user": {
+		"id": "46ba7038-96d5-42dd-a998-55245b97cb59",
+		"name": "hitalo",
+		"cpf": "98765432112",
+		"email": "teste@gmail.com",
+		"password": "$2a$10$DITlkLaZNHlUY1kbikuO7OC.z6mUVURKb4oRVbH76c2L8F/QD5.3K",
+		"contractDate": "2022-09-14T20:18:44.858Z",
+		"administrationNivel": 3,
+		"isActive": true,
+		"occupation": "senior",
+		"telephone": "6133658755",
+		"cell": "61994133544",
+		"address": {
+			"id": "ed39113d-bf83-4de8-95a1-0281fb24e786",
+			"district": "Rua Heleodo Pires de camargo",
+			"zipCode": "72215093",
+			"number": "67",
+			"city": "Piedade",
+			"state": "SP"
+		}
+	},
+	"product": {
+		"id": "de3610f7-45fa-4296-9802-928fd32001ca",
+		"name": "placa de video",
+		"description": "sdsdsdsdsd",
+		"isActive": true,
+		"value": 5050,
+		"saleValue": 6500,
+		"stock": 5,
+		"criticalStock": 2,
+		"provider": {
+			"id": "e5c93347-1e30-4d57-af9f-d13b275a36b3",
+			"name": "Megabyte",
+			"telephone": "1333240499",
+			"email": "megaByte@mail.com",
+			"cnpj": "63519017/0001-70",
+			"address": "Rua Candido Rodrigues - 1082, Centro, São Vicente - SP",
+			"employee": "Larissa Regina Sales",
+			"employeeCell": "1333240499"
+		},
+		"category": {
+			"id": "c8346d95-dbbe-45f9-8d93-3dd8098043ec",
+			"name": "placas",
+			"description": "placas em geral"
+		}
+	}
+}
 ```
 Necessário administrationNivel 2+
 
@@ -919,6 +1027,8 @@ Necessário administrationNivel 2+
 `DELETE /productOrder/:id - Formato da resposta - STATUS 200`
 
 ```json
-
+{
+	"message": "Product order will be permanently deleted in 7 days"
+}
 ```
 Necessário administrationNivel 3
