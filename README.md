@@ -536,9 +536,43 @@ Necessário administrationNivel 2+
 ```
 Necessário administrationNivel 2+
 
+<h2 align ='center'> Listar produtos com estoque crítico </h2>
+
+`GET /product/criticalstock - Formato da resposta`
+
+```json
+[
+	{
+		"id": "4ca4bc08-6aa0-44e9-bb3b-64d733abd98d",
+		"name": "placa de video",
+		"description": "sdsdsdsdsd",
+		"isActive": true,
+		"value": 5050,
+		"saleValue": 6500,
+		"stock": 1,
+		"criticalStock": 2,
+		"provider": {
+			"id": "bad54751-ca51-46a5-a64c-3807cc19c263",
+			"name": "Megabyte",
+			"telephone": "1333240499",
+			"email": "megaByte@mail.com",
+			"cnpj": "63519017/0001-70",
+			"address": "Rua Candido Rodrigues - 1082, Centro, São Vicente - SP",
+			"employee": "Larissa Regina Sales",
+			"employeeCell": "1333240499"
+		},
+		"category": {
+			"id": "76ea0936-e950-4947-9d3e-9e5276b4619e",
+			"name": "placas",
+			"description": "placas em geral"
+		}
+	}
+]
+```
+
 <h2 align ='center'> Criar productEntry </h2>
 
-`/POST - Formato da requisição`
+`POST /productEntry - Formato da requisição`
 
 ```json
 {
@@ -549,7 +583,7 @@ Necessário administrationNivel 2+
 }
 ```
 
-`/POST - Formato da resposta - STATUS 201 CREATED`
+`POST /productEntry - Formato da resposta - STATUS 201 CREATED`
 
 ```json
 {
