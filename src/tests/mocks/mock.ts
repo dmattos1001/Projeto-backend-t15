@@ -2,7 +2,7 @@ import { IOutputProductsRequest } from "../../interfaces/outputProducts/outputPr
 import { ICategoryRequest } from "../../interfaces/category/category";
 import { IProduct } from "../../interfaces/product/product";
 import { IProductEntryRequest } from "../../interfaces/productEntry";
-import { IProductOrderRequest } from "../../interfaces/productOrder/productOrder";
+import { IProductOrderTest } from "../../interfaces/productOrder/productOrder";
 import { IProviderRequest } from "../../interfaces/providers/provider";
 import { ISessionsResquest } from "../../interfaces/sessions/sessions";
 import { IUser } from "../../interfaces/users/users";
@@ -87,13 +87,13 @@ export const mockerLoginAdmNv1: ISessionsResquest = {
   cpf: "06053245626",
   password: "3636",
 };
-export const mockedProductOrder: IProductOrderRequest = {
+export const mockedProductOrder: IProductOrderTest = {
   name: "Placa de video",
   quantityOfProducts: 2,
   product: "15212121",
   user: "",
 };
-export const mockedProductOrderInvalidId: IProductOrderRequest = {
+export const mockedProductOrderInvalidId: IProductOrderTest = {
   name: "Placa de video",
   quantityOfProducts: 2,
   product: "15212121",
@@ -150,8 +150,8 @@ export const mockedProductEntryInvalid: IProductEntryRequest = {
 };
 
 export const mockedOutputProduct: IOutputProductsRequest = {
-name: "Placa de video",
-descriptio: "RTX 3080 4GB",
-quantity: 15,
-productId: "" 
-}
+  name: "Placa de video",
+  descriptio: "RTX 3080 4GB",
+  quantity: 15,
+  productId: "",
+};

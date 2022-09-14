@@ -4,6 +4,7 @@ import { hash } from "bcryptjs";
 import { AppError } from "../../errors/AppErros";
 import { Address } from "../../entities/address.entitys";
 import { IUser } from "../../interfaces/users/users";
+import { sendEmail } from "../../sendEmail/nodemailer.util";
 
 const createUserService = async ({
   name,
@@ -23,9 +24,9 @@ const createUserService = async ({
 
   const users = await userRepository.find();
   const emailAlreadyExists = users.find((user) => user.email === email);
-  if (emailAlreadyExists) {
-    throw new AppError("Email already exists!", 400);
-  }
+  // if (emailAlreadyExists) {
+  //   throw new AppError("Email already exists!", 400);
+  // }
   const userCpf = await userRepository.findOneBy({ cpf: cpf });
   if (userCpf) {
     throw new AppError("Cpf already exists!", 400);
@@ -58,6 +59,13 @@ const createUserService = async ({
     address: newAddress,
   });
   await userRepository.save(user);
+  await sendEmail({
+    subject: "account creation",
+    text: `
+    The ${user.email} account was created at ${user.contractDate} hours of user level ${user.administrationNivel}
+  `,
+    to: user.email,
+  });
   return user;
 };
 
