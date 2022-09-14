@@ -40,6 +40,12 @@ const createProductEntryService = async ({
     throw new AppError("Quantity must be at least 1", 400);
   }
 
+  let soma = Number(quantity) + Number(productExists.stock);
+
+  const updateProduct = await productsRepository.update(productsId, {
+    stock: soma,
+  });
+
   const newEntry = {
     name: productExists.name,
     quantity,
