@@ -8,7 +8,6 @@ const deleProductOrderService = async (
   email: string
 ): Promise<string> => {
   const productOrderRepository = AppDataSource.getRepository(ProductOrder);
-  await productOrderRepository.update(id, { isActive: false });
   const deleteProductOrder = await productOrderRepository.findOneBy({
     id: id,
   });
@@ -21,6 +20,7 @@ const deleProductOrderService = async (
       `Product Order already deactivated please wait until day ${data} to be deleted`
     );
   }
+  await productOrderRepository.update(id, { isActive: false });
   data.setDate(data.getDate() + 7);
   const schedule = require("node-schedule");
   const job2 = schedule.scheduleJob(data, async () => {
