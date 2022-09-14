@@ -12,7 +12,7 @@
 
 ## **Endpoints**
 
-Esta API tem um total de 25 endpoints para o controle de estoque de hardwares.
+Esta API tem um total de 30 endpoints para o controle de estoque de hardwares.
 
 A base url da API é https://estoque-t15.herokuapp.com
 
@@ -51,7 +51,7 @@ O token deverá ser informado no header da requisição no formato:
 <li>A senha deve conter ao menos uma letra maiúscula, minúscula, número e um caractere espercial</li>
 </ul>
 
-`POST /users Formato da requisição`
+`POST /users - Formato da requisição`
 
 ```json
 {
@@ -178,7 +178,7 @@ Necessário administrationNivel 3
 }
 ```
 
-`PATCH /users/:id - Formato da resposta - 200`
+`PATCH /users/:id - Formato da resposta - STATUS 200`
 
 ```json
 {
@@ -242,7 +242,7 @@ Necessário administrationNivel 3
 
 <h2 align ='center'> Listando um acesso de usuário </h2>
 
-`GET /accesslog/:id Formato da resposta - STATUS 200`
+`GET /accesslog/:id - Formato da resposta - STATUS 200`
 
 ```json
 {
@@ -270,6 +270,41 @@ Necessário administrationNivel 3
 		}
 	}
 }
+```
+Necessário administrationNivel 3
+
+<h2 align ='center'> Listando um acesso de um usuário </h2>
+
+`GET /accesslog/user/:id - Formato da resposta - STATUS 200`
+
+```json
+[
+	{
+		"id": "f873f62c-9417-4870-8b2b-0670b8e23b43",
+		"accessDate": "2022-09-14T18:23:57.469Z",
+		"user": {
+			"id": "359380f1-5be8-45dd-9b48-4d76f3e53003",
+			"name": "hitalo",
+			"cpf": "98765432112123",
+			"email": "teste@gmail.com",
+			"password": "$2a$10$F0Tl5.HgbmpQcYc2vORHMe35M3QF2YwyD27SwjCfQIL781es5WQaK",
+			"contractDate": "2022-09-14T13:25:17.359Z",
+			"administrationNivel": 3,
+			"isActive": true,
+			"occupation": "senior",
+			"telephone": "6133658755",
+			"cell": "61994133544",
+			"address": {
+				"id": "9939c7f8-c06d-4f6d-a300-3362dcc81731",
+				"district": "Rua Heleodo Pires de camargo",
+				"zipCode": "72215093",
+				"number": "67",
+				"city": "Piedade",
+				"state": "SP"
+			}
+		}
+	}
+]
 ```
 Necessário administrationNivel 3
 
@@ -384,7 +419,7 @@ Necessário administrationNivel 3
 
 <h2 align ='center'> Listar providers </h2>
 
-`GET /provider - Formato da resposta`
+`GET /provider - Formato da resposta - STATUS 200`
 
 ```json
 [
@@ -404,7 +439,7 @@ Necessário administrationNivel 2+
 
 <h2 align ='center'> Listar um provider </h2>
 
-`GET /provider/:id - Formato da resposta`
+`GET /provider/:id - Formato da resposta - STATUS 200`
 
 ```json
 {
@@ -470,7 +505,7 @@ Necessário administrationNivel 3
 
 <h2 align ='center'> Listar products </h2>
 
-`GET /product - Formato da resposta `
+`GET /product - Formato da resposta - STATUS 200`
 
 ```json
 [
@@ -505,7 +540,7 @@ Necessário administrationNivel 2+
 
 <h2 align ='center'> Listar um product </h2>
 
-`GET /product/:id - Formato da resposta` 
+`GET /product/:id - Formato da resposta - STATUS 200` 
 
 ```json
 {
@@ -538,7 +573,7 @@ Necessário administrationNivel 2+
 
 <h2 align ='center'> Listar produtos com estoque crítico </h2>
 
-`GET /product/criticalstock - Formato da resposta`
+`GET /product/criticalstock - Formato da resposta - STATUS 200`
 
 ```json
 [
@@ -569,6 +604,21 @@ Necessário administrationNivel 2+
 	}
 ]
 ```
+Necessário administrationNivel 2+
+
+<h2 align ='center'> Deletar product </h2>
+<ul>
+	<li>O produto será permanentemente deletado em 7 dias</li>
+</ul>
+
+`DELETE /product/:id - Formato da resposta - STATUS 200`
+
+```json
+{
+	"message": "Product will be permanently deleted in 7 days"
+}
+```
+Necessário administrationNivel 3
 
 <h2 align ='center'> Criar productEntry </h2>
 
@@ -598,7 +648,7 @@ Necessário administrationNivel 3
 
 <h2 align ='center'> Listar productEntry </h2>
 
-`GET /productentry - Formato da resposta` 
+`GET /productentry - Formato da resposta - STATUS 200` 
 
 ```json
 [
@@ -660,7 +710,7 @@ Necessário administrationNivel 2+
 
 <h2 align ='center'> Listar um productEntry </h2>
 
-`GET /productentry/:id - Formato da resposta`
+`GET /productentry/:id - Formato da resposta - STATUS 200`
 
 ```json
 {
@@ -703,7 +753,7 @@ Necessário administrationNivel 3
 
 <h2 align ='center'> Listar outputProducts </h2>
 
-`GET /outputproducts - Formato da resposta`
+`GET /outputproducts - Formato da resposta - STATUS 200`
 
 ```json
 [
@@ -766,7 +816,7 @@ Necessário administrationNivel 2+
 
 <h2 align ='center'> Listar um outputProduct </h2>
 
-`GET /outputproduct/:id - Formato da resposta`
+`GET /outputproduct/:id - Formato da resposta - STATUS 200`
 
 ```json
 {
@@ -847,7 +897,7 @@ Necessário administrationNivel 3
 
 <h2 align ='center'> Listar product Order </h2>
 
-`GET /productOrder - Formato da resposta`
+`GET /productOrder - Formato da resposta - STATUS 200`
 
 ```json
 
@@ -857,9 +907,18 @@ Necessário administrationNivel 2+
 
 <h2 align ='center'> Listar um product Order </h2>
 
-`GET /productOrder/:id - Formato da resposta`
+`GET /productOrder/:id - Formato da resposta - STATUS 200`
 
 ```json
 
 ```
 Necessário administrationNivel 2+
+
+<h2 align ='center'> Deletar um product Order </h2>
+
+`DELETE /productOrder/:id - Formato da resposta - STATUS 200`
+
+```json
+
+```
+Necessário administrationNivel 3
