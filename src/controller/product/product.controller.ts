@@ -53,14 +53,8 @@ const deleteOneProduct = async (req: Request, res: Response) => {
   return res.status(200).json({ message: product });
 };
 const listCriticalStockProduct = async (req: Request, res: Response) => {
-  try {
-    const product = await listCriticalStockProductService();
-    return res.status(200).json(product);
-  } catch (error) {
-    if (error instanceof Error) {
-      res.status(400).send({ message: error.message });
-    }
-  }
+  const product = await listCriticalStockProductService();
+  return res.status(200).json(product);
 };
 export {
   createProduct,
