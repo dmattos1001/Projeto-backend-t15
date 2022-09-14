@@ -54,7 +54,7 @@ describe("/users", () => {
         const adminLoginResponse = await request(app).post("/login").send(mockerLoginAdmNv3);
         const response = await request(app).post("/users").set("Authorization", `Bearer ${adminLoginResponse.body.token}`).send(mockedUserAdmNv3CpfInvalid)
 
-        expect(response.body).toHaveProperty("error")
+        expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(400)      
     })
 
