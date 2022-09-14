@@ -34,9 +34,9 @@ const listOneProduct = async (req: Request, res: Response) => {
 const deleteOneProduct = async (req: Request, res: Response) => {
 
     const { id } = req.params;
-    await deleteOneProductService(id);
+    const deleteProduct = await deleteOneProductService(id);
 
-    return res.status(200).json({ message: 'Product Deleted Success'});
+    return res.status(204).json(deleteProduct);
 
 }
 

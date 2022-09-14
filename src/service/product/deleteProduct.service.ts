@@ -24,7 +24,7 @@ const deleteOneProductService = async (id: string) => {
 
     if (!product.isActive) {
 
-        throw new AppError("Product not active", 400)
+        throw new AppError("Product not active", 404)
 
     }
 
@@ -33,6 +33,8 @@ const deleteOneProductService = async (id: string) => {
         isActive: false
 
     });
+
+    return "Deleted with Sucess";
 
 }
 

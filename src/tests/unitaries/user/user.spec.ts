@@ -121,7 +121,7 @@ describe("/users", () => {
         expect(response.status).toBe(204)
         expect(findUser.body[0].isActive).toBe(false)
      
-    })
+    });
 
 
     test("DELETE /users/:id -  deactivating a user whithout adm 3",async () => {
