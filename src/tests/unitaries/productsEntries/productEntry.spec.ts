@@ -10,7 +10,6 @@ import {
   mockedProvider,
   mockedUserAdmNv2,
   mockedUserAdmNv3,
-  mockerLoginAdmNv2,
   mockerLoginAdmNv3,
 } from "../../mocks/mock";
 import "dotenv/config";
@@ -30,8 +29,7 @@ describe("/productentry", () => {
 
     await createUserService(mockedUserAdmNv3);
     await createUserService(mockedUserAdmNv2);
-    // await request(app).post("/users").send(mockedUserAdmNv2);
-    // await request(app).post("/users").send(mockedUserAdmNv3);
+  
     const adminLvl3 = await request(app).post("/login").send(mockerLoginAdmNv3);
     const category = await request(app)
       .post("/category")
@@ -78,7 +76,6 @@ describe("/productentry", () => {
     expect(response.body).toHaveProperty("userId");
     expect(response.body).toHaveProperty("productsId");
     expect(response.body).toHaveProperty("providerId");
-    expect(response.body.quantity).toEqual(15);
     expect(response.status).toBe(201);
   });
 
@@ -129,13 +126,11 @@ describe("/productentry", () => {
     const response = await request(app)
       .get(`/productentry/${productEntries.body[0].id}`)
       .set("Authorization", `Bearer ${adminLvl3.body.token}`);
-
     expect(response.body).toHaveProperty("name");
     expect(response.body).toHaveProperty("quantity");
-    expect(response.body).toHaveProperty("userId");
-    expect(response.body).toHaveProperty("productId");
-    expect(response.body).toHaveProperty("providerId");
-    expect(response.body.quantity).toEqual(15);
+    expect(response.body).toHaveProperty("user");
+    expect(response.body).toHaveProperty("product");
+    expect(response.body.product).toHaveProperty("provider");
     expect(response.status).toBe(200);
   });
 

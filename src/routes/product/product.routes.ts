@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createProduct,
   deleteOneProduct,
+  listCriticalStockProduct,
   listOneProduct,
   listProducts,
 } from "../../controller/product/product.controller";
@@ -25,6 +26,12 @@ productRoutes.get(
   tokenAuthMiddlewares,
   administrationNivelTwo,
   listProducts
+);
+productRoutes.get(
+  "/criticalstock",
+  tokenAuthMiddlewares,
+  administrationNivelTwo,
+  listCriticalStockProduct
 );
 productRoutes.get(
   "/:id",

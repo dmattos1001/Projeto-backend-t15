@@ -2,7 +2,7 @@ import { IOutputProductsRequest } from "../../interfaces/outputProducts/outputPr
 import { ICategoryRequest } from "../../interfaces/category/category";
 import { IProduct } from "../../interfaces/product/product";
 import { IProductEntryRequest } from "../../interfaces/productEntry";
-import { IProductOrderRequest } from "../../interfaces/productOrder/productOrder";
+import { IProductOrderTest } from "../../interfaces/productOrder/productOrder";
 import { IProviderRequest } from "../../interfaces/providers/provider";
 import { ISessionsResquest } from "../../interfaces/sessions/sessions";
 import { IUser } from "../../interfaces/users/users";
@@ -23,6 +23,24 @@ export const mockedUserAdmNv3: IUser = {
     state: "SP",
   },
 };
+
+export const mockedUserAdmNv3CpfInvalid: IUser = {
+  name: "Laissa",
+  email: "Laissa@gmail.com",
+  password: "B@linha123",
+  cpf: "06053245625",
+  administrationNivel: 3,
+  occupation: "senior",
+  telephone: "6133658755",
+  cell: "61994133544",
+  address: {
+    district: "Rua joão marion",
+    zipCode: "11320905",
+    number: "148",
+    city: "Cubatão",
+    state: "SP",
+  },
+}
 export const mockedUserAdmNv2: IUser = {
   name: "hitalo",
   email: "hitaloMenoLucas@gmail.com",
@@ -69,13 +87,13 @@ export const mockerLoginAdmNv1: ISessionsResquest = {
   cpf: "06053245626",
   password: "3636",
 };
-export const mockedProductOrder: IProductOrderRequest = {
+export const mockedProductOrder: IProductOrderTest = {
   name: "Placa de video",
   quantityOfProducts: 2,
   product: "15212121",
   user: "",
 };
-export const mockedProductOrderInvalidId: IProductOrderRequest = {
+export const mockedProductOrderInvalidId: IProductOrderTest = {
   name: "Placa de video",
   quantityOfProducts: 2,
   product: "15212121",
@@ -86,7 +104,7 @@ export const mockedProduct: IProduct = {
   description: "sdsdsdsdsd",
   value: 5050,
   saleValue: 6500,
-  stock: 5,
+  stock: 50,
   criticalStock: 2,
   provider: "",
   category: "",
@@ -106,13 +124,13 @@ export const mockedProvider: IProviderRequest = {
 };
 
 export const mockedProviderEqualCnpj: IProviderRequest = {
-  name: "Byte",
+  name: "TeraByte",
   telephone: "4599127189",
   email: "byte@mail.com",
   cnpj: "63519017/0001-70",
   address: "Rua President Wilson - 1082, Centro, Santos - SP",
   employee: "Melissa de Souza Rodrigues",
-  employeeCell: "1493918890",
+  employeeCell: "1333249899",
 };
 
 export const mockedProductEntry: IProductEntryRequest = {
@@ -129,4 +147,11 @@ export const mockedProductEntryInvalid: IProductEntryRequest = {
   userId: "1",
   productsId: "654321",
   providerId: "XYZ",
+};
+
+export const mockedOutputProduct: IOutputProductsRequest = {
+  name: "Placa de video",
+  descriptio: "RTX 3080 4GB",
+  quantity: 15,
+  productId: "",
 };

@@ -27,6 +27,7 @@ export const tokenAuthMiddlewares = (
       req.user = {
         id: decoded.sub,
         administrationNivel: decoded.administrationNivel,
+        emailAdm: decoded.emailAdm,
       };
 
       next();

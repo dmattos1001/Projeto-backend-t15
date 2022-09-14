@@ -1,4 +1,3 @@
-import { Any } from "typeorm";
 import AppDataSource from "../../data.source";
 import { Product } from "../../entities/product.entitys";
 import { ProductEntry } from "../../entities/ProductEntry.entitys";
@@ -40,6 +39,12 @@ const createProductEntryService = async ({
   if (quantity < 1) {
     throw new AppError("Quantity must be at least 1", 400);
   }
+
+  let soma = Number(quantity) + Number(productExists.stock);
+
+  const updateProduct = await productsRepository.update(productsId, {
+    stock: soma,
+  });
 
   const newEntry = {
     name: productExists.name,

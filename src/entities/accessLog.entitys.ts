@@ -9,8 +9,8 @@ import { User } from "./user.entitys";
 export class AccessLog {
   @PrimaryGeneratedColumn("uuid")
   id: string;
-  @CreateDateColumn()
-  accessDate: Date;
+  @CreateDateColumn({ type: "date" })
+  accessDate: string;
   @ManyToOne(() => User, { eager: true })
   user: User;
 }

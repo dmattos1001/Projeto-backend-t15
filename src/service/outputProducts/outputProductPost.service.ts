@@ -1,6 +1,5 @@
 import {
-  IOutputProducts,
-  IOutputProductsRequest,
+  IOutputProducts, IOutputProductsReq,
 } from "./../../interfaces/outputProducts/outputProducts";
 import AppDataSource from "./../../data.source";
 import { OutputProduct } from "../../entities/outputProduct.entitys";
@@ -13,7 +12,7 @@ const outputProductPostService = async ({
   quantity,
   userId,
   productId,
-}: IOutputProductsRequest): Promise<IOutputProducts> => {
+}: IOutputProductsReq): Promise<IOutputProducts> => {
   const outputProductRepository = AppDataSource.getRepository(OutputProduct);
   const productRepository = AppDataSource.getRepository(Product);
   const outputProductFind = await outputProductRepository.findOneBy({
