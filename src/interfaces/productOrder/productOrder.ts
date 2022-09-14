@@ -3,6 +3,7 @@ export interface IProductOrderRequest {
   quantityOfProducts: number;
   user: string;
   product: string;
+  email: string;
 }
 export interface IProductOrder {
   name: string;
@@ -12,6 +13,11 @@ export interface IProductOrder {
 export interface IProductOrderSchemas {
   name: string;
   quantityOfProducts: string;
+  product: string;
+}
+export interface IProductOrderTest {
+  name: string;
+  quantityOfProducts: number;
   user: string;
   product: string;
 }

@@ -6,6 +6,8 @@ import administrationNivelTwo from "../../middlewares/administrationNivelTwo.mid
 import { tokenAuthMiddlewares } from "../../middlewares/tokenAuth.middleware";
 import productOrderSchema from "../../schema/productOrder.schema";
 import validationMiddleware from "../../middlewares/validation.middleware";
+import administrationNivelThree from "../../middlewares/administrationNivelThree.middewars";
+import deleProductOrderController from "../../controller/productOrder/deleProductOrder.Controller";
 
 const productOrderRouter = Router();
 productOrderRouter.post(
@@ -26,5 +28,11 @@ productOrderRouter.get(
   tokenAuthMiddlewares,
   administrationNivelTwo,
   profileProductOrderController
+);
+productOrderRouter.delete(
+  "/:id",
+  tokenAuthMiddlewares,
+  administrationNivelThree,
+  deleProductOrderController
 );
 export default productOrderRouter;

@@ -57,7 +57,6 @@ describe("/productOrder", () => {
   });
 
   test("POST /productOrder - Creating a order product", async () => {
-
     const login = await request(app).post("/login").send(mockerLoginAdmNv3);
 
     const product = await request(app)
@@ -79,7 +78,6 @@ describe("/productOrder", () => {
     expect(response.body).toHaveProperty("isActive");
     expect(response.body).toHaveProperty("requestDate");
     expect(response.status).toBe(201);
-
   });
 
   test("POST /productOrder - must not be able to create product Order does not have admin authorization ", async () => {
@@ -136,7 +134,6 @@ describe("/productOrder", () => {
       .post("/productOrder")
       .set("Authorization", `Bearer ${login.body.token}`)
       .send(mockedProductOrder);
-    console.log(response.body);
     expect(response.body).toHaveProperty("message");
     expect(response.status).toBe(404);
   });
