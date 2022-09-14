@@ -141,7 +141,7 @@ describe("/product", () => {
        
         const findProduct = await request(app).get("/product").set("Authorization", `Bearer ${admin2LoginResponse.body.token}`);
         
-        expect(response.status).toBe(204);
+        expect(response.status).toBe(200);
         expect(findProduct.body[0].isActive).toBe(false);
         
     });
@@ -153,7 +153,7 @@ describe("/product", () => {
         const response = await request(app).delete(`/product/${productDeactivating.body[0].id}`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
 
         expect(response.body).toHaveProperty("message");
-        expect(response.status).toBe(404);
+        expect(response.status).toBe(400);
     });
     
     test("DELETE /product/:id -  should not be able to delete product with invalid id",async () => {
@@ -171,7 +171,7 @@ describe("/product", () => {
         const productDeactivating = await request(app).get("/product").set("Authorization", `Bearer ${admin2LoginResponse.body.token}`);
 
         const response = await request(app).delete(`/product/${productDeactivating.body[0].id}`).set("Authorization", `Bearer ${admin2LoginResponse.body.token}`);
-        expect(response.status).toBe(404);
+        expect(response.status).toBe(400);
         expect(response.body).toHaveProperty("message");
      
     });
