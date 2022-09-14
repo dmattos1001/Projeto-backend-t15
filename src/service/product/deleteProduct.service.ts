@@ -1,6 +1,7 @@
 import AppDataSource from "../../data.source";
 import { Product } from "../../entities/product.entitys";
 import { AppError } from "../../errors/AppErros";
+
 import { sendEmail } from "../../sendEmail/nodemailer.util";
 
 const deleteOneProductService = async (id: string, email: string) => {
@@ -27,6 +28,7 @@ const deleteOneProductService = async (id: string, email: string) => {
       subject: `the product of the name ${Product.name} was deleted on day ${data}`,
       text: "Product deleted",
       to: email,
+
     });
     await productRepository.delete(id);
   });
@@ -34,5 +36,6 @@ const deleteOneProductService = async (id: string, email: string) => {
 
   return "Product will be permanently deleted in 7 days";
 };
+
 
 export default deleteOneProductService;

@@ -45,6 +45,7 @@ const listOneProduct = async (req: Request, res: Response) => {
 };
 
 const deleteOneProduct = async (req: Request, res: Response) => {
+
   const { id } = req.params;
   const email = req.user.emailAdm;
   const product = await deleteOneProductService(id, email);
@@ -62,3 +63,4 @@ export {
   deleteOneProduct,
   listCriticalStockProduct,
 };
+
