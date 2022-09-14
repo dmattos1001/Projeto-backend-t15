@@ -13,7 +13,6 @@ import { outputProductsRouter } from "./routes/outputProducts/output.routes";
 import productOrderRouter from "./routes/productOrder/productOrder.routes";
 
 const app = express();
-
 app.use(express.json());
 app.use("/provider", providerRouter);
 app.use("/users", userRouter);
