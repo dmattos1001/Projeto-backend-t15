@@ -1,9 +1,9 @@
 import { createTransport } from "nodemailer";
 import { IEmailRequest } from "../interfaces/email/email.interface";
-import "dotenv/config";
 import hbs, { HbsTransporter } from "nodemailer-express-handlebars";
+import "dotenv/config";
 
-const sendEmail = async ({ subject, text, to }: IEmailRequest) => {
+const sendEmail = async ({ subject, text, template, to }: IEmailRequest) => {
   const transporter: HbsTransporter = createTransport({
     host: "smtp-mail.outlook.com",
     port: 587,
@@ -31,7 +31,7 @@ const sendEmail = async ({ subject, text, to }: IEmailRequest) => {
       from: process.env.SMTP_USER,
       to: to,
       subject: subject,
-      template: "index",
+      template: template || "normalShipping",
       context: { text },
     })
     .then(() => {

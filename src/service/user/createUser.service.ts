@@ -59,13 +59,13 @@ const createUserService = async ({
     address: newAddress,
   });
   await userRepository.save(user);
-  // await sendEmail({
-  //   subject: "account creation",
-  //   text: `
-  //   The ${user.email} account was created at ${user.contractDate} hours of user level ${user.administrationNivel}
-  // `,
-  //   to: user.email,
-  // });
+  await sendEmail({
+    subject: "account creation",
+    text: `
+    The ${user.email} account was created at ${user.contractDate} hours of user level ${user.administrationNivel}
+  `,
+    to: user.email,
+  });
   return user;
 };
 
