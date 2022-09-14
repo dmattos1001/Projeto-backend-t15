@@ -64,5 +64,26 @@ describe("/category", () => {
         expect(response.status).toBe(200); 
      
     });
+
+    test("GET /category/:id -  should be able to ONE category adm2",async () => {
+
+        const admin2LoginResponse = await request(app).post("/login").send(mockerLoginAdmNv3);
+        const response = await request(app).get("/category").set("Authorization", `Bearer ${admin2LoginResponse.body.token}`)
+
+        expect(response.body[0]).toHaveProperty("name");
+        expect(response.body[0]).toHaveProperty("description");
+        expect(response.status).toBe(200); 
+     
+    });
+
+    test("GET /category/:id -  should be able to ONE category adm1 ERRO",async () => {
+
+        const admin2LoginResponse = await request(app).post("/login").send(mockerLoginAdmNv1);
+        const category = await request(app).get("/category").set("Authorization", `Bearer ${admin2LoginResponse.body.token}`);
+
+        expect(category.body).toHaveProperty("message");
+        expect(category.status).toBe(403);
+     
+    });
     
 });
