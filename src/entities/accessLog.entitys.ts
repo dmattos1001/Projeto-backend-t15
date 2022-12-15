@@ -5,6 +5,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { User } from "./user.entitys";
+
 @Entity("accessLog")
 export class AccessLog {
   @PrimaryGeneratedColumn("uuid")
