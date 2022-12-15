@@ -10,7 +10,34 @@ import { tokenAuthMiddlewares } from "../../middlewares/tokenAuth.middleware";
 export const userRouter = Router();
 
 userRouter.post("", createUserController);
+<<<<<<< HEAD
 userRouter.get("", tokenAuthMiddlewares, administrationNivelThree, listUserController);
 userRouter.get("/:id", administrationNivelThree, listUserByIdController);
 userRouter.patch("/:id", administrationNivelThree, updateUserController);
 userRouter.delete("/:id", tokenAuthMiddlewares, administrationNivelThree, deleteUserController);
+=======
+userRouter.get(
+  "",
+  tokenAuthMiddlewares,
+  administrationNivelThree,
+  listUserController
+);
+userRouter.get(
+  "/:id",
+  tokenAuthMiddlewares,
+  administrationNivelThree,
+  listUserByIdController
+);
+userRouter.patch(
+  "/:id",
+  tokenAuthMiddlewares,
+  administrationNivelThree,
+  updateUserController
+);
+userRouter.delete(
+  "/:id",
+  tokenAuthMiddlewares,
+  administrationNivelThree,
+  deleteUserController
+);
+>>>>>>> 069e76b62755ed4f2f9338f2993ce427248b06ac
